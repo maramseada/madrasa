@@ -4,11 +4,14 @@ import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import '../../../../core/constants/font_size.dart';
 
 class RegisterNewAnimatingText extends StatelessWidget {
-  const RegisterNewAnimatingText({super.key});
+  final  Color color;
+  final String text;
+
+  const RegisterNewAnimatingText({super.key, required this.color, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return          WidgetAnimator(
+    return WidgetAnimator(
       incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
         duration: const Duration(seconds: 1),
       ),
@@ -21,9 +24,9 @@ class RegisterNewAnimatingText extends StatelessWidget {
           children: [
             SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.85,
-              child: const Text(
+              child:  Text(
                 textAlign: TextAlign.right,
-                'هل انت طالب تسعى الي توسيع افاقك و فتح ابواب المعرفة؟ أم ولي أمر تود متابعة رحلة ابنك المستقبلية ودعمة فب اكتشاف شغفة',
+                text,
                 maxLines: 4,
               ),
             ),
@@ -33,7 +36,7 @@ class RegisterNewAnimatingText extends StatelessWidget {
               height: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
-                color: Colors.green,
+                color: color
               ),
             ),
           ],

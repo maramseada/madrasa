@@ -35,9 +35,11 @@ dependencies:
   flutter_bloc:
   dio:
   dartz:
+  svg_flutter:
+  easy_stepper: ^0.8.5+1
   widget_and_text_animator: ^1.1.5
-
-  # The following adds the Cupertino Icons font to your application.
+  time_picker_spinner_pop_up: ^2.0.0
+    # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
