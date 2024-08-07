@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:trials/core/constants/components/button_widget.dart';
+import 'package:trials/features/continue_register/presentation/components/school_year_page.dart';
 import 'package:trials/features/registration/presentation/screens/new_registration.dart';
 import 'package:trials/features/registration/presentation/screens/registration_options.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
-import 'contact_info.dart';
+import 'contact_info_page.dart';
 
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});
@@ -83,7 +84,7 @@ class _StepperScreenState extends State<StepperScreen> {
                             child: Container(
                               width: 5.0,
                               height: 5.0,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   vertical: 2.5, horizontal: 3.5),
                               decoration: const BoxDecoration(
                                   color: Colors.white,
@@ -102,7 +103,7 @@ class _StepperScreenState extends State<StepperScreen> {
               physics: NeverScrollableScrollPhysics(), // Disable swipe
               children: [
                 ContactInfo(),
-                NewRegistration(),
+                SchoolYearPage(),
 
               ],
             ),

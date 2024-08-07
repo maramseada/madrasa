@@ -1,30 +1,27 @@
+
 import 'package:flutter/material.dart';
-import 'package:trials/core/constants/text.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
-import 'package:trials/core/constants/text.dart';
+import '../../../../core/constants/text.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/font_styles.dart';
-
-class GenderDropDownWidget extends StatefulWidget {
+class NationalityDropDownWidget extends StatefulWidget {
   final Function(String) onChanged;
   final String? initialValue;
 
-  const GenderDropDownWidget({
+  const NationalityDropDownWidget({
     super.key,
     required this.onChanged,
     this.initialValue,
   });
 
   @override
-  State<GenderDropDownWidget> createState() => _GenderDropDownWidgetState();
+  State<NationalityDropDownWidget> createState() => _NationalityDropDownWidgetState();
 }
 
-class _GenderDropDownWidgetState extends State<GenderDropDownWidget> {
+class _NationalityDropDownWidgetState extends State<NationalityDropDownWidget> {
   String? selectedGender;
-  List<String> genders = ['Male', 'Female'];
+  List<String> genders = ['Bahamian'	,'Bahraini',	'Bangladeshi'	,'Barbadian','Egyptian', ];
 
   @override
   void initState() {
@@ -51,14 +48,14 @@ class _GenderDropDownWidgetState extends State<GenderDropDownWidget> {
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            hintText: selectedGender == null ? AppText.gender : '',
+            hintText: selectedGender == null ? AppText.nationality : '',
             hintStyle: AppStyles.styleBold16(
-                context: context,
-                color:Color(AppColors.grayText),), // Replace with your text style
+              context: context,
+              color:Color(AppColors.grayText),), // Replace with your text style
             border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
           ),
-          style:AppStyles.styleBold16(
+          style: AppStyles.styleBold16(
             context: context,
             color:Color(AppColors.grayText),),
           dropdownColor: Colors.white,// Replace with your text style
