@@ -1,16 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:trials/core/constants/colors.dart';
 import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/core/constants/text.dart';
 import 'package:trials/features/continue_register/presentation/components/school_level_sliver.dart';
 import 'package:trials/features/continue_register/presentation/components/school_subject_sliver.dart';
 import 'package:trials/features/continue_register/presentation/components/school_year_sliver.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
-
 import '../../../registration/presentation/components/register_new_animating_text.dart';
-import 'content_size_grid_view.dart';
 
 class SchoolYearPage extends StatelessWidget {
   const SchoolYearPage({super.key});
@@ -46,7 +41,7 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolLevelSliver(),
+          const SchoolLevelSliver(),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
@@ -63,7 +58,7 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolYearSliver(),
+          const SchoolYearSliver(),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
@@ -80,7 +75,7 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolSubjectSliver(),
+          const SchoolSubjectSliver(),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 10,
