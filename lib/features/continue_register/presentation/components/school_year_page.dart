@@ -7,6 +7,7 @@ import 'package:trials/core/constants/text.dart';
 import 'package:trials/features/continue_register/presentation/components/school_level_sliver.dart';
 import 'package:trials/features/continue_register/presentation/components/school_subject_sliver.dart';
 import 'package:trials/features/continue_register/presentation/components/school_year_sliver.dart';
+import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 import '../../../registration/presentation/components/register_new_animating_text.dart';
 import 'content_size_grid_view.dart';
@@ -29,9 +30,15 @@ class SchoolYearPage extends StatelessWidget {
           ),
 
           SliverToBoxAdapter(
-            child: Text(
-              'حدد المرحلة الدراسية',
-              style: AppStyles.styleBold18(context: context),
+            child: WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child: Text(
+                'حدد المرحلة الدراسية',
+                style: AppStyles.styleBold18(context: context),
+              ),
             ),
           ),
           const SliverToBoxAdapter(
