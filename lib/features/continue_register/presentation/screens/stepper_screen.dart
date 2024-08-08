@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/presentation/controller/Timing/timing_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
+import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 import 'package:trials/features/continue_register/presentation/screens/school_year_page.dart';
 import 'package:trials/features/continue_register/presentation/screens/timing_screen.dart';
 import '../../../../core/constants/font_styles.dart';
@@ -30,9 +30,9 @@ class _StepperScreenState extends State<StepperScreen> {
   String? studentCount;
   String? shift;
   String? timing;
-int? selectedSubscription;
+  int? selectedSubscription;
   String? selectedClassCount;
-String? selectedClassHours;
+  String? selectedClassHours;
 
   void _nextStep() async {
     if (_currentStep == 3) {
@@ -85,26 +85,26 @@ String? selectedClassHours;
           id: 792, days: selectedDays, time: timing!, shift: shift!);
     }
     if (_currentStep == 6) {
-      if (selectedDays.isEmpty) {
+      if (selectedSubscription== null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select at least one day')),
+          const SnackBar(content: Text('Please select at least one selectedSubscription')),
         );
         return;
       }
-      if (shift == null) {
+      if (selectedClassCount == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select the number of shift')),
+          const SnackBar(content: Text('Please select the number of selectedClassCount')),
         );
         return;
       }
-      if (timing == null) {
+      if (selectedClassHours == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select time')),
+          const SnackBar(content: Text('Please select selectedClassHours')),
         );
         return;
       }
-      BlocProvider.of<TimingCubit>(context).postTimings(
-          id: 792, days: selectedDays, time: timing!, shift: shift!);
+      BlocProvider.of<SubscriptionsCubit>(context).postSubscriptions(
+          id: 792, subscription: selectedSubscription!, session: selectedClassCount!, hour: selectedClassHours!);
     }
 
     if (_currentStep < _totalSteps) {
@@ -234,19 +234,22 @@ String? selectedClassHours;
                     setState(() {
                       selectedClassCount = value == 1 ? 'one' : 'two';
 
-                      print('Selected Subscription in StepperScreen: $selectedClassCount');
+                      print(
+                          'Selected Subscription in StepperScreen: $selectedClassCount');
                     });
                   },
                   onClassHoursChanged: (String? value) {
                     setState(() {
                       selectedClassHours = value;
-                      print('Selected Subscription in StepperScreen: $selectedClassHours');
+                      print(
+                          'Selected Subscription in StepperScreen: $selectedClassHours');
                     });
                   },
                   onSubscriptionChanged: (int? value) {
                     setState(() {
                       selectedSubscription = value;
-                      print('Selected Subscription in StepperScreen: $selectedSubscription');
+                      print(
+                          'Selected Subscription in StepperScreen: $selectedSubscription');
                     });
                   },
                 ),

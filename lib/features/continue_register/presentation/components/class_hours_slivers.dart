@@ -16,7 +16,7 @@ class SubScriptionsSlivers extends StatefulWidget {
   @override
   State<SubScriptionsSlivers> createState() => _SubScriptionsSliversState();
 }
-
+List<SubscriptionModel>? data;
 class _SubScriptionsSliversState extends State<SubScriptionsSlivers> {
   int? selectedIndex;
 
@@ -30,8 +30,10 @@ class _SubScriptionsSliversState extends State<SubScriptionsSlivers> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubscriptionsCubit, SubscriptionsState>(
-      builder: (BuildContext context, state) {
-        if (state is SubscriptionsLoading) {
+
+        builder: (BuildContext context, state) {
+          data =BlocProvider.of<SubscriptionsCubit>(context).data;
+          if (state is SubscriptionsLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is SubscriptionsSuccess) {
           List<SubscriptionModel>? data = state.data;
@@ -48,7 +50,17 @@ class _SubScriptionsSliversState extends State<SubScriptionsSlivers> {
             }),
           );
         } else {
-          return const SizedBox(); // or other appropriate widget
+          return Wrap(
+            spacing: 8,
+            runSpacing: 10,
+            children: List.generate(data!.length, (index) {
+              return SubscriptionWidget(
+                data: data![index],
+                selectedIndex: selectedIndex,
+                onSelected: (selectedIndex) => _handleSelection(selectedIndex),
+              );
+            }),
+          ); // or other appropriate widget
         }
       },
     );
