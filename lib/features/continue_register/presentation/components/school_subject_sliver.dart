@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
-
-class SchoolSubjectSliver extends StatelessWidget {
+import 'choose_option__widget.dart';
+class SchoolSubjectSliver extends StatefulWidget {
   const SchoolSubjectSliver({super.key});
+
+  @override
+  State<SchoolSubjectSliver> createState() => _SchoolSubjectSliverState();
+}
+List<int> indexes = [];
+
+class _SchoolSubjectSliverState extends State<SchoolSubjectSliver> {
 
   @override
   Widget build(BuildContext context) {
@@ -13,97 +20,50 @@ class SchoolSubjectSliver extends StatelessWidget {
         spacing: 8,
         runSpacing: 10,
         children: [
-          Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey
-                          .withOpacity(0.2), // Shadow color
-                      spreadRadius:
-                      2, // How much the shadow should spread
-                      blurRadius: 5, // How soft the shadow should be
-                      offset: const Offset(
-                          0, 5), // Changes position of shadow
-                    ),
-                  ],
-                  color: Colors.white,
-                  border:
-                  Border.all(color: Color(AppColors.grayBorder)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Text(
-                'الصف الخامس',
-                style: AppStyles.style40016(context: context),
-              )),
-          Container(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey
-                        .withOpacity(0.2), // Shadow color
-                    spreadRadius:
-                    2, // How much the shadow should spread
-                    blurRadius: 5, // How soft the shadow should be
-                    offset: const Offset(
-                        0, 5), // Changes position of shadow
-                  ),
-                ],
-                color: Colors.white,   border: Border.all(color: Color(AppColors.grayBorder)),
-                borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              'الصف السادس',
-              style: AppStyles.style40016(context: context),
-            ),
+
+
+
+
+          ChooseOptionsWidget(
+            index: 1,
+            selectedIndex: indexes.contains(1) ? 1 : null,
+            onSelected: (index) => _handleSelection(index),
+            title:                 'المنهج البريطاني',
+
           ),
-          Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey
-                          .withOpacity(0.2), // Shadow color
-                      spreadRadius:
-                      2, // How much the shadow should spread
-                      blurRadius: 5, // How soft the shadow should be
-                      offset: const Offset(
-                          0, 5), // Changes position of shadow
-                    ),
-                  ],
-                  color: Colors.white,    border:
-              Border.all(color: Color(AppColors.grayBorder)),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Text(
-                'الصف السابع',
-                style: AppStyles.style40016(context: context),
-              )),
-          Container(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey
-                        .withOpacity(0.2), // Shadow color
-                    spreadRadius:
-                    2, // How much the shadow should spread
-                    blurRadius: 5, // How soft the shadow should be
-                    offset: const Offset(
-                        0, 5), // Changes position of shadow
-                  ),
-                ],
-                color: Colors.white,    border: Border.all(color: Color(AppColors.grayBorder)),
-                borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              'الصف الثامن',
-              style: AppStyles.style40016(context: context),
-            ),
+          ChooseOptionsWidget(
+            index: 2,
+            selectedIndex: indexes.contains(2) ? 2 : null,
+            onSelected: (index) => _handleSelection(index),
+            title:       'المنهج اللأمريكي',
           ),
+          ChooseOptionsWidget(
+            index: 3,
+            selectedIndex: indexes.contains(3) ? 3 : null,
+            onSelected: (index) => _handleSelection(index),
+            title:  'المنهج الوزاري',
+          ),
+          ChooseOptionsWidget(
+            index: 4,
+            selectedIndex: indexes.contains(4) ? 4 : null,
+            onSelected: (index) => _handleSelection(index),
+            title:    'أخرى ',
+          ),
+
+
+
         ],
       ),
     );
+  }void _handleSelection(int index) {
+    setState(() {
+      if (indexes.contains(index)) {
+        indexes.remove(index);
+      } else {
+        indexes.add(index);
+      }
+    });
+    print(indexes);
   }
 }
+

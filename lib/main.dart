@@ -3,8 +3,8 @@ import 'package:trials/features/registration/presentation/screens/new_registrati
 import 'package:trials/features/registration/presentation/screens/registration_options.dart';
 
 void main() {
-  runApp(const MyApp());
-}
+
+runApp(  MyApp());}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+
+        debugShowCheckedModeBanner: false,
       home: RegistrationOptions()
     );
   }

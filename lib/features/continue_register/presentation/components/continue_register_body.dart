@@ -25,8 +25,7 @@ class _StepperScreenState extends State<StepperScreen> {
     if (_currentStep < _totalSteps) {
       setState(() {
         _currentStep++;
-        _pageController.nextPage(
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
       });
     }
   }
@@ -35,8 +34,7 @@ class _StepperScreenState extends State<StepperScreen> {
     if (_currentStep > 1) {
       setState(() {
         _currentStep--;
-        _pageController.previousPage(
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
       });
     }
   }
@@ -44,8 +42,8 @@ class _StepperScreenState extends State<StepperScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:      Colors.white,
-              body: Column(
+      backgroundColor: Colors.white,
+      body: Column(
         children: [
           // Stepper Indicator
           Container(
@@ -74,9 +72,7 @@ class _StepperScreenState extends State<StepperScreen> {
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        width: MediaQuery.of(context).size.width *
-                            (_currentStep /
-                                _totalSteps), // Adjust width to fill up to the current step
+                        width: MediaQuery.of(context).size.width * (_currentStep / _totalSteps), // Adjust width to fill up to the current step
                       ),
                       if (_currentStep / _totalSteps != 1)
                         Positioned(
@@ -84,12 +80,8 @@ class _StepperScreenState extends State<StepperScreen> {
                             child: Container(
                               width: 5.0,
                               height: 5.0,
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 2.5, horizontal: 3.5),
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border()),
+                              margin: const EdgeInsets.symmetric(vertical: 2.5, horizontal: 3.5),
+                              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border()),
                             ))
                     ]),
                   ],
@@ -104,7 +96,6 @@ class _StepperScreenState extends State<StepperScreen> {
               children: [
                 ContactInfo(),
                 SchoolYearPage(),
-
               ],
             ),
           ),
@@ -123,9 +114,19 @@ class _StepperScreenState extends State<StepperScreen> {
                 ),
                 if (_currentStep < _totalSteps)
                   ElevatedButton(
-                    onPressed: _nextStep,
-                    child: Text('Next'),
-                  ),
+                      onPressed: _nextStep,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.double_arrow,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'التالي',
+                            style: AppStyles.style60016(context: context, color: Colors.white),
+                          )
+                        ],
+                      ), ),
               ],
             ),
           ),
