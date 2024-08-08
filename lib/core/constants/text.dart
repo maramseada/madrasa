@@ -24,4 +24,26 @@ class AppText {
       'اختر المرحله اللتي تناسبك ونضمن لك افضل الخيارات التعليمية المتاحة ';
   static String continuecontactInfo =
       'نحن هنا لمساعدتك في رحلتك التعلبمبه املأ بينات الاتصال الخاصة بك لنتمكن من توجيهك خطوة بخطوة ';
+
+  static String studentCount =
+      'ما عدد الطلاب المشتركين';
+  static String kinderGarden = 'رياض اطفال';
+  static String elementary = 'التعليم الابتدائي';
+  static String highSchool = 'التعليم الثانوي';
+  static String middleSchool = 'التعليم الإعدادي';
+
+  static String oneStudent =
+      'طالب واحد';
+
+  static String twoStudents =
+      'طالبان';
+
+  static String moreThanTwoStudents =
+      'أكثر من طالبان';
+
+  static String other =
+      'آخر';
+  static String chooseSchoolYearShort =
+      'حدد السنة الدراسية'; static String chooseSchoolGoalsShort =
+      'حدد أهدافك الدراسية';
 }

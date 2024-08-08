@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:trials/core/constants/text.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
@@ -26,13 +27,22 @@ class _SchoolLevelSliverState extends State<SchoolLevelSliver> {
             index: 1,
             selectedIndex: indexes.contains(1) ? 1 : null,
             onSelected: (index) => _handleSelection(index),
-            title: 'رياض اطفال',
-          ),
+              title: AppText.kinderGarden          ),
           ChooseOptionsWidget(
-            index: 2,
-            selectedIndex: indexes.contains(2) ? 2 : null,
+              index: 2,
+              selectedIndex: indexes.contains(2) ? 2 : null,
+              onSelected: (index) => _handleSelection(index),
+              title: AppText.elementary
+          ),  ChooseOptionsWidget(
+            index: 3,
+            selectedIndex: indexes.contains(3) ? 3 : null,
             onSelected: (index) => _handleSelection(index),
-            title: 'التعليم الابتدائي',
+            title: AppText.middleSchool
+          ),  ChooseOptionsWidget(
+            index: 4,
+            selectedIndex: indexes.contains(4) ? 4 : null,
+            onSelected: (index) => _handleSelection(index),
+            title: AppText.highSchool
           ),
         ],
       ),

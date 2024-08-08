@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../data/models/material_model.dart';
+import '../../../data/models/material_model.dart';
 
 @immutable
 

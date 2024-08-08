@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/core/constants/components/button_widget.dart';
-import 'package:trials/features/continue_register/presentation/controller/material_cubit.dart';
+import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
+import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
 import 'package:trials/features/continue_register/presentation/screens/school_year_page.dart';
 import 'package:trials/features/registration/presentation/screens/new_registration.dart';
 import 'package:trials/features/registration/presentation/screens/registration_options.dart';
@@ -10,7 +11,8 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
 import 'choose_material_page.dart';
 import 'contact_info_page.dart';
-
+import 'number_students_goals_page.dart';
+// stepper_screen.dart
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});
 
@@ -24,21 +26,34 @@ class _StepperScreenState extends State<StepperScreen> {
 
   final PageController _pageController = PageController();
   List<int> selectedSubjects = [];
+  List<int> selectedGoals = [];
+  String? studentCount;
 
   void _nextStep() async {
-    if (_currentStep == 3  ) {
-
-      if(selectedSubjects.isEmpty){
+    if (_currentStep == 3) {
+      if (selectedSubjects.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please select at least one subject')),
         );
+        return;
       }
-  BlocProvider.of<MaterialCubit>(context).postMaterials(id: 792, materials: selectedSubjects);
-      setState(() {
-        _currentStep++;
-        _pageController.nextPage(
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
-      });
+       BlocProvider.of<MaterialCubit>(context).postMaterials(id:792, materials: selectedSubjects);
+    }
+
+    if (_currentStep == 4) {
+      if (selectedGoals.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please select at least one Goal')),
+        );
+        return;
+      }
+      if (studentCount == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please select the number of students')),
+        );
+        return;
+      }
+       BlocProvider.of<PurposesCubit>(context).postPurpose(id: 792,  purposes: selectedGoals, count: studentCount!);
     }
 
     if (_currentStep < _totalSteps) {
@@ -48,19 +63,7 @@ class _StepperScreenState extends State<StepperScreen> {
             duration: Duration(milliseconds: 300), curve: Curves.ease);
       });
     }
-
-
   }
-  //
-  // void _nextStep() {
-  //   if (_currentStep < _totalSteps) {
-  //     setState(() {
-  //       _currentStep++;
-  //       _pageController.nextPage(
-  //           duration: Duration(milliseconds: 300), curve: Curves.ease);
-  //     });
-  //   }
-  // }
 
   void _previousStep() {
     if (_currentStep > 1) {
@@ -86,45 +89,43 @@ class _StepperScreenState extends State<StepperScreen> {
               children: [
                 Expanded(
                     child: Stack(
-                  children: [
-                    // Background Line
-                    Container(
-                      height: 10.0,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    // Progress Line
-
-                    Stack(children: [
-                      Container(
-                        height: 10.0,
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(8.0),
+                      children: [
+                        // Background Line
+                        Container(
+                          height: 10.0,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
-                        width: MediaQuery.of(context).size.width *
-                            (_currentStep /
-                                _totalSteps), // Adjust width to fill up to the current step
-                      ),
-                      if (_currentStep / _totalSteps != 1)
-                        Positioned(
-                            left: 0,
-                            child: Container(
-                              width: 5.0,
-                              height: 5.0,
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 2.5, horizontal: 3.5),
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border()),
-                            ))
-                    ]),
-                  ],
-                )),
+                        // Progress Line
+                        Stack(children: [
+                          Container(
+                            height: 10.0,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            width: MediaQuery.of(context).size.width *
+                                (_currentStep / _totalSteps), // Adjust width to fill up to the current step
+                          ),
+                          if (_currentStep / _totalSteps != 1)
+                            Positioned(
+                                left: 0,
+                                child: Container(
+                                  width: 5.0,
+                                  height: 5.0,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 2.5, horizontal: 3.5),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      border: Border()),
+                                ))
+                        ]),
+                      ],
+                    )),
               ],
             ),
           ),
@@ -138,10 +139,23 @@ class _StepperScreenState extends State<StepperScreen> {
                 ChooseMaterialPage(
                   onSelectionChanged: (selectedIndexes) {
                     setState(() {
-                      this.selectedSubjects = selectedIndexes;
+                      selectedSubjects = selectedIndexes;
                     });
                   },
-                ),           SchoolYearPage(),            ],
+                ),
+                NumberStudentsGoalsPage(
+                  onGoalSelectionChanged: (selectedIndexes) {
+                    setState(() {
+                      selectedGoals = selectedIndexes;
+                    });
+                  },
+                  onStudentCountChanged: (count) {
+                    setState(() {
+                      studentCount = count.toString();
+                    });
+                  },
+                ),
+              ],
             ),
           ),
           Padding(
@@ -149,10 +163,9 @@ class _StepperScreenState extends State<StepperScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:Colors.white,
+                    backgroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 10.0),
                     // Padding
@@ -165,27 +178,21 @@ class _StepperScreenState extends State<StepperScreen> {
                       BorderRadius.circular(10.0), // Rounded corners
                     ),
                   ),
-                  onPressed: (){
-                    if (_currentStep > 1) {
-                      _previousStep();
-                    }
-                  },
+                  onPressed: _previousStep,
                   child: Row(
                     children: [
                       const Icon(
                         Icons.double_arrow_sharp,
                         color: Colors.green,
-
-                      ),  Text(
+                      ),
+                      Text(
                         ' السابق',
                         style: AppStyles.style60016(
                             context: context, color: Colors.green),
                       ),
-
                     ],
                   ),
                 ),
-
                 if (_currentStep < _totalSteps)
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -194,7 +201,7 @@ class _StepperScreenState extends State<StepperScreen> {
                           horizontal: 20.0, vertical: 10.0), // Padding
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(10.0), // Rounded corners
+                        BorderRadius.circular(10.0), // Rounded corners
                       ),
                     ),
                     onPressed: _nextStep,
@@ -206,8 +213,7 @@ class _StepperScreenState extends State<StepperScreen> {
                               context: context, color: Colors.white),
                         ),
                         Transform.rotate(
-                          angle:
-                              3.14, // Rotate the icon 180 degrees to face left
+                          angle: 3.14, // Rotate the icon 180 degrees to face left
                           child: const Icon(
                             Icons.double_arrow_sharp,
                             color: Colors.white,

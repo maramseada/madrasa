@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/core/constants/text.dart';
-import 'package:trials/features/continue_register/presentation/controller/material_cubit.dart';
+import 'package:trials/features/continue_register/data/data_source/purpose_data_source.dart';
+import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
 
 import '../../../../core/constants/font_styles.dart';
 import '../../data/data_source/material_data_source.dart';
+import '../controller/purposes/purposes_cubit.dart';
 import 'stepper_screen.dart';
 
 class ReservationsSalonPage extends StatelessWidget {
@@ -49,7 +51,7 @@ class ReservationsSalonPage extends StatelessWidget {
           MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => MaterialCubit(MaterialData())),
-             // BlocProvider(create: (context) => OrdersSalonExpiredCubit(OrdersDataSource())),
+              BlocProvider(create: (context) => PurposesCubit(PurposeData())),
             ],
            child:
 
