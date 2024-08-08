@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:trials/core/constants/colors.dart';
+
 import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/core/constants/text.dart';
 import 'package:trials/features/continue_register/presentation/components/school_level_sliver.dart';
@@ -10,8 +8,6 @@ import 'package:trials/features/continue_register/presentation/components/school
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 import '../../../../core/constants/font_size.dart';
-import '../../../registration/presentation/components/register_new_animating_text.dart';
-import 'content_size_grid_view.dart';
 
 class SchoolYearPage extends StatelessWidget {
   const SchoolYearPage({super.key});

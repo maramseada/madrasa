@@ -2,6 +2,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:svg_flutter/svg_flutter.dart';
+import 'package:trials/core/constants/font_size.dart';
+import 'package:trials/core/constants/images.dart';
 
 import '../../data/models/material_model.dart';
 
@@ -27,7 +30,8 @@ class SubjectWidget extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
+    margin: const EdgeInsets.only(left: 8.0,right: 8, bottom: 10),
+          decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -43,8 +47,13 @@ class SubjectWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CachedNetworkImage(imageUrl: data.image),
+            CachedNetworkImage(
+              imageUrl: data.image,
+              errorWidget: (context, url, error) => SvgPicture.asset(AppImages.global, color: Colors.green,)
+            )
+      ,SizedBox(height: getResponsiveFontSize(context, fontSize: 15),),
             Text(
               data.arabicLanguage,
               style: TextStyle(fontSize: 16), // Adjust with your AppStyles

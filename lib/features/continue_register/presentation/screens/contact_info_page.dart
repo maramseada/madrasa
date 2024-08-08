@@ -4,11 +4,11 @@ import 'package:trials/core/constants/font_size.dart';
 import 'package:trials/core/constants/text.dart';
 
 import '../../../registration/presentation/components/register_new_animating_text.dart';
-import 'additiona_notes_text_field.dart';
-import 'birthday_select_widget.dart';
-import 'disability_drop_down.dart';
-import 'gender_drop_down.dart';
-import 'nationality_drop_down.dart';
+import '../components/additiona_notes_text_field.dart';
+import '../components/birthday_select_widget.dart';
+import '../components/disability_drop_down.dart';
+import '../components/gender_drop_down.dart';
+import '../components/nationality_drop_down.dart';
 
 class ContactInfo extends StatelessWidget {
   const ContactInfo({super.key});

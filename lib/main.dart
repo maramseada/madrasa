@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/registration/presentation/screens/new_registration.dart';
 import 'package:trials/features/registration/presentation/screens/registration_options.dart';
 
-void main() {
+import 'core/simple_bloc_observer.dart';
 
-runApp(  MyApp());}
+void main() {
+  Bloc.observer = MyBlocObserver();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,10 +16,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-        debugShowCheckedModeBanner: false,
-      home: RegistrationOptions()
-    );
+        debugShowCheckedModeBanner: false, home: RegistrationOptions());
   }
 }
-
