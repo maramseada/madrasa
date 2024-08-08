@@ -25,25 +25,34 @@ class AppText {
   static String continuecontactInfo =
       'نحن هنا لمساعدتك في رحلتك التعلبمبه املأ بينات الاتصال الخاصة بك لنتمكن من توجيهك خطوة بخطوة ';
 
-  static String studentCount =
-      'ما عدد الطلاب المشتركين';
+  static String studentCount = 'ما عدد الطلاب المشتركين';
+  static String timingShort = 'ما الفترة الزمنية المناسبة لك؟ ';
+  static String chooseTimeShort = 'أختر التوقيت المناسب لك ';
+  static String morning = 'الفترة المسائية ';
+  static String night = ' الفترة الصباحية';
   static String kinderGarden = 'رياض اطفال';
   static String elementary = 'التعليم الابتدائي';
   static String highSchool = 'التعليم الثانوي';
   static String middleSchool = 'التعليم الإعدادي';
 
-  static String oneStudent =
-      'طالب واحد';
+  static String oneStudent = 'طالب واحد';
 
-  static String twoStudents =
-      'طالبان';
+  static String twoStudents = 'طالبان';
 
-  static String moreThanTwoStudents =
-      'أكثر من طالبان';
+  static String moreThanTwoStudents = 'أكثر من طالبان';
 
-  static String other =
-      'آخر';
-  static String chooseSchoolYearShort =
-      'حدد السنة الدراسية'; static String chooseSchoolGoalsShort =
-      'حدد أهدافك الدراسية';
+  static String other = 'آخر';
+  static String chooseSchoolYearShort = 'حدد السنة الدراسية';
+  static String chooseSchoolGoalsShort = 'حدد أهدافك الدراسية';
+  static String subscriptionTime = 'مدة الاشتراك';
+  static String classesAWeek = 'كم حصة اسبوعيا؟';
+  static String classHours = 'كم عدد ساعات الحصة الواحدة؟';
+  static String oneClass = 'حصة واحدة';
+  static String twoClasses = 'حصتين';
+  static String halfHour = 'نصف ساعة';
+  static String hour = 'ساعة';
+  static String hourAndHalf = 'ساعة ونصف';
+  static String twoHours = 'ساعتين';
+  static String twoHoursAndHalf = 'ساعتين ونصف';
+  static String derham = '  درهم ';
 }

@@ -6,7 +6,8 @@ import 'package:trials/features/continue_register/presentation/controller/purpos
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_state.dart';
 
 import '../../data/models/purpose_model.dart';
-import 'choose_option__widget.dart';class PurposesSliver extends StatefulWidget {
+
+class PurposesSliver extends StatefulWidget {
   final ValueChanged<List<int>> onGoalSelectionChanged; // Callback for selection changes
 
   const PurposesSliver({super.key, required this.onGoalSelectionChanged});
@@ -28,7 +29,7 @@ class _PurposesSliverState extends State<PurposesSliver> {
           BlocBuilder<PurposesCubit, PurposesState>(
             builder: (BuildContext context, state) {
               if (state is PurposeLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is PurposeSuccess) {
                 List<PurposeModel>? data = state.data;
 
@@ -44,7 +45,7 @@ class _PurposesSliverState extends State<PurposesSliver> {
                   }),
                 );
               } else {
-                return SizedBox(); // or other appropriate widget
+                return const SizedBox(); // or other appropriate widget
               }
             },
           ),

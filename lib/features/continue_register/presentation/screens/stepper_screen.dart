@@ -1,18 +1,17 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trials/core/constants/components/button_widget.dart';
+import 'package:trials/features/continue_register/presentation/controller/Timing/timing_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
 import 'package:trials/features/continue_register/presentation/screens/school_year_page.dart';
-import 'package:trials/features/registration/presentation/screens/new_registration.dart';
-import 'package:trials/features/registration/presentation/screens/registration_options.dart';
-
-import '../../../../core/constants/colors.dart';
+import 'package:trials/features/continue_register/presentation/screens/timing_screen.dart';
 import '../../../../core/constants/font_styles.dart';
 import 'choose_material_page.dart';
+import 'classes_time.dart';
 import 'contact_info_page.dart';
 import 'number_students_goals_page.dart';
-// stepper_screen.dart
+
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});
 
@@ -27,40 +26,92 @@ class _StepperScreenState extends State<StepperScreen> {
   final PageController _pageController = PageController();
   List<int> selectedSubjects = [];
   List<int> selectedGoals = [];
+  List<int> selectedDays = [];
   String? studentCount;
+  String? shift;
+  String? timing;
+int? selectedSubscription;
+int? selectedClassCount;
+String? selectedClassHours;
 
   void _nextStep() async {
     if (_currentStep == 3) {
       if (selectedSubjects.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please select at least one subject')),
+          const SnackBar(content: Text('Please select at least one subject')),
         );
         return;
       }
-       BlocProvider.of<MaterialCubit>(context).postMaterials(id:792, materials: selectedSubjects);
+      BlocProvider.of<MaterialCubit>(context)
+          .postMaterials(id: 792, materials: selectedSubjects);
     }
 
     if (_currentStep == 4) {
       if (selectedGoals.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please select at least one Goal')),
+          const SnackBar(content: Text('Please select at least one Goal')),
         );
         return;
       }
       if (studentCount == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please select the number of students')),
+          const SnackBar(content: Text('Please select the number of students')),
         );
         return;
       }
-       BlocProvider.of<PurposesCubit>(context).postPurpose(id: 792,  purposes: selectedGoals, count: studentCount!);
+      BlocProvider.of<PurposesCubit>(context)
+          .postPurpose(id: 792, purposes: selectedGoals, count: studentCount!);
+    }
+    if (_currentStep == 5) {
+      if (selectedDays.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select at least one day')),
+        );
+        return;
+      }
+      if (shift == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select the number of shift')),
+        );
+        return;
+      }
+      if (timing == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select time')),
+        );
+        return;
+      }
+      BlocProvider.of<TimingCubit>(context).postTimings(
+          id: 792, days: selectedDays, time: timing!, shift: shift!);
+    }
+    if (_currentStep == 6) {
+      if (selectedDays.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select at least one day')),
+        );
+        return;
+      }
+      if (shift == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select the number of shift')),
+        );
+        return;
+      }
+      if (timing == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select time')),
+        );
+        return;
+      }
+      BlocProvider.of<TimingCubit>(context).postTimings(
+          id: 792, days: selectedDays, time: timing!, shift: shift!);
     }
 
     if (_currentStep < _totalSteps) {
       setState(() {
         _currentStep++;
         _pageController.nextPage(
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+            duration: const Duration(milliseconds: 300), curve: Curves.ease);
       });
     }
   }
@@ -70,7 +121,7 @@ class _StepperScreenState extends State<StepperScreen> {
       setState(() {
         _currentStep--;
         _pageController.previousPage(
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+            duration: const Duration(milliseconds: 300), curve: Curves.ease);
       });
     }
   }
@@ -89,53 +140,54 @@ class _StepperScreenState extends State<StepperScreen> {
               children: [
                 Expanded(
                     child: Stack(
-                      children: [
-                        // Background Line
-                        Container(
-                          height: 10.0,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                  children: [
+                    // Background Line
+                    Container(
+                      height: 10.0,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    // Progress Line
+                    Stack(children: [
+                      Container(
+                        height: 10.0,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        // Progress Line
-                        Stack(children: [
-                          Container(
-                            height: 10.0,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            width: MediaQuery.of(context).size.width *
-                                (_currentStep / _totalSteps), // Adjust width to fill up to the current step
-                          ),
-                          if (_currentStep / _totalSteps != 1)
-                            Positioned(
-                                left: 0,
-                                child: Container(
-                                  width: 5.0,
-                                  height: 5.0,
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 2.5, horizontal: 3.5),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      border: Border()),
-                                ))
-                        ]),
-                      ],
-                    )),
+                        width: MediaQuery.of(context).size.width *
+                            (_currentStep /
+                                _totalSteps), // Adjust width to fill up to the current step
+                      ),
+                      if (_currentStep / _totalSteps != 1)
+                        Positioned(
+                            left: 0,
+                            child: Container(
+                              width: 5.0,
+                              height: 5.0,
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 2.5, horizontal: 3.5),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border()),
+                            ))
+                    ]),
+                  ],
+                )),
               ],
             ),
           ),
           Expanded(
             child: PageView(
               controller: _pageController,
-              physics: NeverScrollableScrollPhysics(), // Disable swipe
+              physics: const NeverScrollableScrollPhysics(), // Disable swipe
               children: [
-                ContactInfo(),
-                SchoolYearPage(),
+                const ContactInfo(),
+                const SchoolYearPage(),
                 ChooseMaterialPage(
                   onSelectionChanged: (selectedIndexes) {
                     setState(() {
@@ -155,6 +207,48 @@ class _StepperScreenState extends State<StepperScreen> {
                     });
                   },
                 ),
+                TimingPage(
+                  onDaysChanged: (List<int> value) {
+                    setState(() {
+                      selectedDays = value;
+                      print('selectedDays: $selectedDays');
+                    });
+                  },
+                  onPeriodChanged: (int? value) {
+                    setState(() {
+                      shift = value == 1 ? 'night' : 'day';
+                      print('shift: $shift');
+                    });
+                  },
+                  onTimingChanged: (int? value) {
+                    setState(() {
+                      timing = value == 1
+                          ? '15:00'
+                          : '12:00'; // Update timing based on selected value
+                      print('timing: $timing');
+                    });
+                  },
+                ),
+                ClassesTimePage(
+                  onClassCountChanged: (int? value) {
+                    setState(() {
+                      selectedClassCount = value;
+                      print('Selected Subscription in StepperScreen: $selectedClassCount');
+                    });
+                  },
+                  onClassHoursChanged: (String? value) {
+                    setState(() {
+                      selectedClassHours = value;
+                      print('Selected Subscription in StepperScreen: $selectedClassHours');
+                    });
+                  },
+                  onSubscriptionChanged: (int? value) {
+                    setState(() {
+                      selectedSubscription = value;
+                      print('Selected Subscription in StepperScreen: $selectedSubscription');
+                    });
+                  },
+                ),
               ],
             ),
           ),
@@ -170,12 +264,12 @@ class _StepperScreenState extends State<StepperScreen> {
                         horizontal: 20.0, vertical: 10.0),
                     // Padding
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Colors.green, // Border color
                         width: 2.0, // Border width
                       ),
                       borderRadius:
-                      BorderRadius.circular(10.0), // Rounded corners
+                          BorderRadius.circular(10.0), // Rounded corners
                     ),
                   ),
                   onPressed: _previousStep,
@@ -201,7 +295,7 @@ class _StepperScreenState extends State<StepperScreen> {
                           horizontal: 20.0, vertical: 10.0), // Padding
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                        BorderRadius.circular(10.0), // Rounded corners
+                            BorderRadius.circular(10.0), // Rounded corners
                       ),
                     ),
                     onPressed: _nextStep,
@@ -213,7 +307,8 @@ class _StepperScreenState extends State<StepperScreen> {
                               context: context, color: Colors.white),
                         ),
                         Transform.rotate(
-                          angle: 3.14, // Rotate the icon 180 degrees to face left
+                          angle:
+                              3.14, // Rotate the icon 180 degrees to face left
                           child: const Icon(
                             Icons.double_arrow_sharp,
                             color: Colors.white,

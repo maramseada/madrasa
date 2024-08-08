@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trials/features/continue_register/data/data_source/purpose_data_source.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
-
 import '../../../../core/constants/font_size.dart';
 import '../../../../core/constants/font_styles.dart';
 import '../../../../core/constants/text.dart';
-import '../../data/models/purpose_model.dart';
-import '../components/purposes_widget.dart';
-import '../components/student_number_slivers.dart';
-import '../controller/purposes/purposes_cubit.dart';
-import '../controller/purposes/purposes_state.dart';
+import '../components/Days_slivers.dart';
+import '../components/period_slivers.dart';
+import '../components/time_slivers.dart';
 
-class NumberStudentsGoalsPage extends StatefulWidget {
-  final ValueChanged<List<int>> onGoalSelectionChanged;
-  final ValueChanged<int?> onStudentCountChanged;
+class TimingPage extends StatefulWidget {
+  final ValueChanged<List<int>> onDaysChanged;
+  final ValueChanged<int?> onPeriodChanged;
+  final ValueChanged<int?> onTimingChanged;
 
-  const NumberStudentsGoalsPage({
+  const TimingPage({
     super.key,
-    required this.onGoalSelectionChanged,
-    required this.onStudentCountChanged,
+    required this.onDaysChanged,
+    required this.onPeriodChanged,
+    required this.onTimingChanged,
   });
 
   @override
-  State<NumberStudentsGoalsPage> createState() =>
-      _NumberStudentsGoalsPageState();
+  State<TimingPage> createState() => _TimingPageState();
 }
 
-class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
-  List<int> selectedGoals = [];
+class _TimingPageState extends State<TimingPage> {
+  List<int> selectedDays = [];
   int? studentCount;
 
   @override
@@ -86,12 +82,11 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
           const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          StudentNumberSlivers(
-            onSelectionChanged: (selectedStudentCount) {
+          DaysSliver(
+            onGoalSelectionChanged: (selectedIndexes) {
               setState(() {
-                studentCount = selectedStudentCount;
-                widget.onStudentCountChanged(
-                    studentCount); // Notify parent about the selection
+                selectedDays = selectedIndexes;
+                widget.onDaysChanged(selectedDays); // Notify parent about the selection
               });
             },
           ),
@@ -113,14 +108,29 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
           const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          PurposesSliver(
-            onGoalSelectionChanged: (selectedIndexes) {
-              setState(() {
-                selectedGoals = selectedIndexes;
-                widget.onGoalSelectionChanged(
-                    selectedGoals); // Notify parent about the selection
-              });
-            },
+          PeriodSlivers(
+            onPeriodChanged: widget.onPeriodChanged, // Pass callback to PeriodSlivers
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
+          ),
+          SliverToBoxAdapter(
+            child: WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child: Text(
+                AppText.chooseTimeShort,
+                style: AppStyles.styleBold18(context: context),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 20),
+          ),
+          TimeSlivers(
+            onTimeChanged: widget.onTimingChanged, // Pass callback to TimeSlivers
           ),
         ],
       ),

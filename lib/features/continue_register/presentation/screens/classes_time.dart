@@ -1,35 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trials/features/continue_register/data/data_source/purpose_data_source.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 import '../../../../core/constants/font_size.dart';
 import '../../../../core/constants/font_styles.dart';
 import '../../../../core/constants/text.dart';
-import '../../data/models/purpose_model.dart';
-import '../components/purposes_widget.dart';
-import '../components/student_number_slivers.dart';
-import '../controller/purposes/purposes_cubit.dart';
-import '../controller/purposes/purposes_state.dart';
+import '../components/class_hours.dart';
+import '../components/class_hours_slivers.dart';
+import '../components/classes_per_week_Sliver.dart';
+class ClassesTimePage extends StatefulWidget {
+  final ValueChanged<String?> onClassHoursChanged;
+  final ValueChanged<int?> onClassCountChanged;
+  final ValueChanged<int?> onSubscriptionChanged; // New callback for subscription
 
-class NumberStudentsGoalsPage extends StatefulWidget {
-  final ValueChanged<List<int>> onGoalSelectionChanged;
-  final ValueChanged<int?> onStudentCountChanged;
-
-  const NumberStudentsGoalsPage({
+  const ClassesTimePage({
     super.key,
-    required this.onGoalSelectionChanged,
-    required this.onStudentCountChanged,
+    required this.onClassHoursChanged,
+    required this.onClassCountChanged,
+    required this.onSubscriptionChanged, // Add the new parameter
   });
 
   @override
-  State<NumberStudentsGoalsPage> createState() =>
-      _NumberStudentsGoalsPageState();
+  State<ClassesTimePage> createState() => _ClassesTimePageState();
 }
 
-class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
-  List<int> selectedGoals = [];
-  int? studentCount;
+class _ClassesTimePageState extends State<ClassesTimePage> {
+  int? classPerWeek;
+  String? classHours;
+  int? selectedSubscription;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +75,7 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
               ),
               atRestEffect: WidgetRestingEffects.none(),
               child: Text(
-                AppText.studentCount,
+                AppText.classesAWeek,
                 style: AppStyles.styleBold18(context: context),
               ),
             ),
@@ -86,12 +83,11 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
           const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          StudentNumberSlivers(
-            onSelectionChanged: (selectedStudentCount) {
+          ClassesPerWeekSlivers(
+            onClassesPerWeekChanged: (selectedClassCount) {
               setState(() {
-                studentCount = selectedStudentCount;
-                widget.onStudentCountChanged(
-                    studentCount); // Notify parent about the selection
+                classPerWeek = selectedClassCount;
+                widget.onClassCountChanged(classPerWeek); // Notify parent about the selection
               });
             },
           ),
@@ -105,7 +101,7 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
               ),
               atRestEffect: WidgetRestingEffects.none(),
               child: Text(
-                AppText.chooseSchoolGoalsShort,
+                AppText.classHours,
                 style: AppStyles.styleBold18(context: context),
               ),
             ),
@@ -113,14 +109,41 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
           const SliverToBoxAdapter(
             child: SizedBox(height: 10),
           ),
-          PurposesSliver(
-            onGoalSelectionChanged: (selectedIndexes) {
+          ClassHoursSlivers(
+            onClassHoursChanged: (selectedTime) {
               setState(() {
-                selectedGoals = selectedIndexes;
-                widget.onGoalSelectionChanged(
-                    selectedGoals); // Notify parent about the selection
+                classHours = selectedTime;
+                widget.onClassHoursChanged(classHours); // Notify parent about the selection
               });
             },
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+          SliverToBoxAdapter(
+            child: WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child: Text(
+                AppText.subscriptionTime,
+                style: AppStyles.styleBold18(context: context),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 10),
+          ),
+          SliverToBoxAdapter(
+            child: SubScriptionsSlivers(
+              onSubScriptionsChanged: (int? value) {
+                setState(() {
+                  selectedSubscription = value;
+                  widget.onSubscriptionChanged(selectedSubscription); // Notify parent about the selection
+                });
+              },
+            ),
           ),
         ],
       ),

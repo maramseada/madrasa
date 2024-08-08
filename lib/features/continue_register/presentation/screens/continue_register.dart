@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/core/constants/text.dart';
 import 'package:trials/features/continue_register/data/data_source/purpose_data_source.dart';
+import 'package:trials/features/continue_register/data/data_source/subscriptions_data_Source.dart';
 import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
+import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 
 import '../../../../core/constants/font_styles.dart';
 import '../../data/data_source/material_data_source.dart';
+import '../../data/data_source/timing_data_source.dart';
+import '../controller/Timing/timing_cubit.dart';
 import '../controller/purposes/purposes_cubit.dart';
 import 'stepper_screen.dart';
 
@@ -52,7 +56,10 @@ class ReservationsSalonPage extends StatelessWidget {
             providers: [
               BlocProvider(create: (context) => MaterialCubit(MaterialData())),
               BlocProvider(create: (context) => PurposesCubit(PurposeData())),
-            ],
+              BlocProvider(create: (context) => TimingCubit(TimingData())..getTimings()),
+              BlocProvider(create: (context) => PurposesCubit(PurposeData())..getPurpose()),
+              BlocProvider(create: (context) => SubscriptionsCubit(SubscriptionData())..getSubscriptions()),
+    ],
            child:
 
           StepperScreen(),
