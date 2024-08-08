@@ -5,6 +5,7 @@ import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/core/constants/text.dart';
 import 'package:trials/features/continue_register/data/models/supscription_model.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
+
 class SubscriptionWidget extends StatelessWidget {
   final SubscriptionModel data;
   final int? selectedIndex;
@@ -59,11 +60,17 @@ class SubscriptionWidget extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             Text(
               data.arabicTerm,
               style: AppStyles.style40016(
                 context: context,
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             Text(
               data.arabicPeriod,
@@ -71,6 +78,9 @@ class SubscriptionWidget extends StatelessWidget {
                 context: context,
                 color: Colors.green,
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             WidgetAnimator(
               incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
@@ -93,6 +103,9 @@ class SubscriptionWidget extends StatelessWidget {
                     style: AppStyles.styleBold14(
                       context: context,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                 ],
               ),

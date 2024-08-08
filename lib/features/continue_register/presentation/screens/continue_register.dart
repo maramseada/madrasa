@@ -5,6 +5,8 @@ import 'package:trials/features/continue_register/data/data_source/purpose_data_
 import 'package:trials/features/continue_register/data/data_source/subscriptions_data_Source.dart';
 import 'package:trials/features/continue_register/presentation/controller/materials/material_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
+import 'package:trials/features/credit_card/data/payment_data_source.dart';
+import 'package:trials/features/credit_card/presentation/controllers/payment_cubit.dart';
 
 import '../../../../core/constants/font_styles.dart';
 import '../../data/data_source/material_data_source.dart';
@@ -64,6 +66,9 @@ class ReservationsSalonPage extends StatelessWidget {
               BlocProvider(
                   create: (context) => SubscriptionsCubit(SubscriptionData())
                     ..getSubscriptions()),
+              BlocProvider(
+                  create: (context) => PaymentCubit(PaymentData())
+                   ),
             ],
             child: const StepperScreen(),
           ),

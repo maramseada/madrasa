@@ -20,7 +20,7 @@ class NavigationButtons extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: [          if (currentStep !=totalSteps)
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -34,9 +34,9 @@ class NavigationButtons extends StatelessWidget {
               ),
             ),
             onPressed: onPrevious,
-            child: Row(
+            child: const Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.double_arrow_sharp,
                   color: Colors.green,
                 ),
@@ -47,7 +47,7 @@ class NavigationButtons extends StatelessWidget {
               ],
             ),
           ),
-          if (currentStep < totalSteps)
+          if (currentStep != totalSteps)
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
@@ -59,7 +59,7 @@ class NavigationButtons extends StatelessWidget {
               onPressed: onNext,
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     'التالي',
                     style: TextStyle(color: Colors.white),
                   ),

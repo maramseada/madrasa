@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:trials/features/continue_register/presentation/screens/school_year_page.dart';
 import 'package:trials/features/continue_register/presentation/screens/timing_screen.dart';
 
+import '../../../credit_card/presentation/screens/credit_card_screen.dart';
 import '../components/navigations_buttons.dart';
 import '../components/stepper_indicator.dart';
 import '../controller/stepper_controller.dart';
 import 'choose_material_page.dart';
 import 'classes_time.dart';
 import 'contact_info_page.dart';
+import 'final_screen.dart';
 import 'number_students_goals_page.dart';
-
 
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});
@@ -97,6 +98,29 @@ class _StepperScreenState extends State<StepperScreen> {
                     });
                   },
                 ),
+                CreditCardScreen(
+                  onCardNumberChanged: (String? value) {
+                    setState(() {
+                      _controller.numberCard = value == 1 ? 'one' : 'two';
+                    });
+                  },
+                  onCardNameChanged: (String? value) {
+                    setState(() {
+                      _controller.cardName = value;
+                    });
+                  },
+                  onPinChanged: (int? value) {
+                    setState(() {
+                      _controller.cvc = value;
+                    });
+                  },
+                  onExpDateChanged: (String? value) {
+                    setState(() {
+                      _controller.expDateCard = value;
+                    });
+                  },
+                ),
+                FinalScreen()
               ],
             ),
           ),

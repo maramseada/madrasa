@@ -54,5 +54,14 @@ class AppText {
   static String hourAndHalf = 'ساعة ونصف';
   static String twoHours = 'ساعتين';
   static String twoHoursAndHalf = 'ساعتين ونصف';
-  static String derham = '  درهم ';
+  static String derham = 'درهم';
+  static String total = 'الاجمالي';
+  static String creditCard = 'بطاقة أئتمان';
+  static String cardNumber= 'رقم البطاقة';
+  static String expireDate = 'تاريخ انتهاء الصلاحية';
+  static String pin = 'رمز الحماية';
+  static String cardName = 'الاسم على البطاقة';
+  static String succesPayment = 'تم الدفع بنجاح';
+  static String thankYou = 'شكرا لك على ثقتك في المدرسة.كوم';
+  static String redirect = 'توجهه الي جدولك الدراسي';
 }
