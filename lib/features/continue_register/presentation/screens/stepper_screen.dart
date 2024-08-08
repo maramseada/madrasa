@@ -31,7 +31,7 @@ class _StepperScreenState extends State<StepperScreen> {
   String? shift;
   String? timing;
 int? selectedSubscription;
-int? selectedClassCount;
+  String? selectedClassCount;
 String? selectedClassHours;
 
   void _nextStep() async {
@@ -232,7 +232,8 @@ String? selectedClassHours;
                 ClassesTimePage(
                   onClassCountChanged: (int? value) {
                     setState(() {
-                      selectedClassCount = value;
+                      selectedClassCount = value == 1 ? 'one' : 'two';
+
                       print('Selected Subscription in StepperScreen: $selectedClassCount');
                     });
                   },
