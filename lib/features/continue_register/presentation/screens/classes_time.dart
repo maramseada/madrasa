@@ -136,7 +136,7 @@ class _ClassesTimePageState extends State<ClassesTimePage> {
             child: SizedBox(height: 10),
           ),
           SliverToBoxAdapter(
-            child: SubScriptionsSlivers(
+            child: SubscriptionsSlivers(
               onSubScriptionsChanged: (int? value) {
                 setState(() {
                   selectedSubscription = value;

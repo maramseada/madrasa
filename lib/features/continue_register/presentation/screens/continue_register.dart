@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/core/constants/text.dart';
@@ -36,33 +35,37 @@ class ReservationsSalonPage extends StatelessWidget {
                   // Align text to the start
                   children: [
                     Text(
-                   AppText.elmadrash,
-                      style: AppStyles.styleBold30(context: context, color: Colors.green),
+                      AppText.elmadrash,
+                      style: AppStyles.styleBold30(
+                          context: context, color: Colors.green),
                     ),
                     const SizedBox(
                       height: 7,
                     ),
                     Text(
                       AppText.elmadrashCom,
-                      style: AppStyles.styleRegular18(context: context, color: Colors.green),
+                      style: AppStyles.styleRegular18(
+                          context: context, color: Colors.green),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          body:
-          MultiBlocProvider(
+          body: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => MaterialCubit(MaterialData())),
               BlocProvider(create: (context) => PurposesCubit(PurposeData())),
-              BlocProvider(create: (context) => TimingCubit(TimingData())..getTimings()),
-              BlocProvider(create: (context) => PurposesCubit(PurposeData())..getPurpose()),
-              BlocProvider(create: (context) => SubscriptionsCubit(SubscriptionData())..getSubscriptions()),
-    ],
-           child:
-
-          StepperScreen(),
+              BlocProvider(
+                  create: (context) => TimingCubit(TimingData())..getTimings()),
+              BlocProvider(
+                  create: (context) =>
+                      PurposesCubit(PurposeData())..getPurpose()),
+              BlocProvider(
+                  create: (context) => SubscriptionsCubit(SubscriptionData())
+                    ..getSubscriptions()),
+            ],
+            child: const StepperScreen(),
           ),
         ),
       ),
