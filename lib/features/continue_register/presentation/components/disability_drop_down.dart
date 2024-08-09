@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
-import '../../../../core/constants/text.dart';
-
-class DisabilityDropDown extends StatefulWidget {
+import '../../../../core/constants/text.dart';class DisabilityDropDown extends StatefulWidget {
   final Function(String) onChanged;
   final String? initialValue;
 
@@ -20,13 +18,13 @@ class DisabilityDropDown extends StatefulWidget {
 }
 
 class _DisabilityDropDownState extends State<DisabilityDropDown> {
-  String? selectedGender;
-  List<String> genders = [AppText.yesdisabilty,AppText.noDisabilty, ];
+  String? selectedDisability;
+  List<String> disabilities = [AppText.yesdisabilty, AppText.noDisabilty];
 
   @override
   void initState() {
     super.initState();
-    selectedGender = widget.initialValue;
+    selectedDisability = widget.initialValue;
   }
 
   @override
@@ -37,43 +35,46 @@ class _DisabilityDropDownState extends State<DisabilityDropDown> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color:Color(AppColors.grayBorder), width: 1),
+          border: Border.all(color: Color(AppColors.grayBorder), width: 1),
           color: Colors.white,
         ),
         child: DropdownButtonFormField<String>(
-          value: selectedGender,
-          icon:  Icon(
+          value: selectedDisability,
+          icon: Icon(
             Icons.keyboard_arrow_down,
             color: Color(AppColors.grayText),
           ),
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            hintText: selectedGender == null ? AppText.disabilty : '',
+            hintText: selectedDisability == null ? AppText.disabilty : '',
             hintStyle: AppStyles.styleBold16(
               context: context,
-              color:Color(AppColors.grayText),), // Replace with your text style
+              color: Color(AppColors.grayText),
+            ), // Replace with your text style
             border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
           ),
           style: AppStyles.styleBold16(
             context: context,
-            color:Color(AppColors.grayText),),
-          dropdownColor: Colors.white,// Replace with your text style
-          items: genders.map<DropdownMenuItem<String>>((String gender) {
-
+            color: Color(AppColors.grayText),
+          ),
+          dropdownColor: Colors.white, // Replace with your text style
+          items: disabilities.map<DropdownMenuItem<String>>((String disability) {
             return DropdownMenuItem<String>(
-
               alignment: Alignment.centerRight,
-              value: gender,
-              child: Text(gender),
+              value: disability,
+              child: Text(disability),
             );
           }).toList(),
           onChanged: (String? newValue) {
             setState(() {
-              selectedGender = newValue;
+              selectedDisability = newValue;
             });
-            widget.onChanged(selectedGender!);
+            String result = (selectedDisability == AppText.yesdisabilty)
+                ? "Yes"
+                : "No";
+            widget.onChanged(result);
           },
         ),
       ),

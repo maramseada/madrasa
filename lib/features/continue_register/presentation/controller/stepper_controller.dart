@@ -3,21 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 import 'package:trials/features/credit_card/presentation/controllers/payment_cubit.dart';
+import 'package:trials/features/registration/presentation/controller/Auth_cubit/register_cubit.dart';
 
+import '../../../registration/presentation/controller/sign_up_controller.dart';
 import 'Timing/timing_cubit.dart';
 import 'materials/material_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StepperController extends ChangeNotifier {
-  int currentStep = 1;
 
-  final int _totalSteps = 8;
-  int get totalSteps => _totalSteps;
+class StepperCubit extends Cubit<int> {
+  StepperCubit(this.signUpController) : super(1);
+  final int totalSteps = 8;
 
   final PageController _pageController = PageController();
   PageController get pageController => _pageController;
 
+  SignUpController signUpController;
   List<int> selectedSubjects = [];
   List<int> selectedGoals = [];
   List<int> selectedDays = [];
@@ -31,9 +33,25 @@ class StepperController extends ChangeNotifier {
   String? numberCard;
   String? expDateCard;
   String? cardName;
+
   void nextStep(BuildContext context) async {
-    switch (currentStep) {
+    switch (state) {
       case 1:
+
+
+
+
+        BlocProvider.of<RegisterCubit>(context).pay(
+          firstName: signUpController.name!,
+          secondName: signUpController.familyName!,
+          whatsapp: signUpController.phone!,
+          email: signUpController.email!,
+          age: signUpController.selectedBirthday != null ? (DateTime.now().year - signUpController.selectedBirthday!.year).toInt() : null,
+          gender: signUpController.selectedGender,
+          nationality: signUpController.selectedNationality,
+          difficulties: signUpController.selectedDisability,
+          description: signUpController.additionalNotes,
+        );
         break;
       case 2:
         break;
@@ -46,7 +64,6 @@ class StepperController extends ChangeNotifier {
         }
         BlocProvider.of<MaterialCubit>(context).postMaterials(id: 792, materials: selectedSubjects);
         break;
-
       case 4:
         if (selectedGoals.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +79,6 @@ class StepperController extends ChangeNotifier {
         }
         BlocProvider.of<PurposesCubit>(context).postPurpose(id: 792, purposes: selectedGoals, count: studentCount!);
         break;
-
       case 5:
         if (selectedDays.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -84,51 +100,49 @@ class StepperController extends ChangeNotifier {
         }
         BlocProvider.of<TimingCubit>(context).postTimings(id: 792, days: selectedDays, time: timing!, shift: shift!);
         break;
-
       case 6:
         if (selectedSubscription == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select at least one selectedSubscription')),
+            const SnackBar(content: Text('Please select at least one subscription')),
           );
           return;
         }
         if (selectedClassCount == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select the number of selectedClassCount')),
+            const SnackBar(content: Text('Please select the number of class count')),
           );
           return;
         }
         if (selectedClassHours == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select selectedClassHours')),
+            const SnackBar(content: Text('Please select class hours')),
           );
           return;
         }
-        BlocProvider.of<SubscriptionsCubit>(context)
-            .postSubscriptions(id: 792, subscription: selectedSubscription!, session: selectedClassCount!, hour: selectedClassHours!);
+        BlocProvider.of<SubscriptionsCubit>(context).postSubscriptions(id: 792, subscription: selectedSubscription!, session: selectedClassCount!, hour: selectedClassHours!);
         break;
       case 7:
         if (cvc == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter cvc')),
+            const SnackBar(content: Text('Please enter CVC')),
           );
           return;
         }
         if (numberCard == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select the number of selectedClassCount')),
+            const SnackBar(content: Text('Please enter card number')),
           );
           return;
         }
         if (expDateCard == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select selectedClassHours')),
+            const SnackBar(content: Text('Please enter expiration date')),
           );
           return;
         }
         if (cardName == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select cardName')),
+            const SnackBar(content: Text('Please enter card name')),
           );
           return;
         }
@@ -136,18 +150,17 @@ class StepperController extends ChangeNotifier {
         break;
     }
 
-    if (currentStep < _totalSteps) {
-      currentStep++;
+    if (state < totalSteps) {
+      emit(state + 1);
       _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
-      notifyListeners();
     }
   }
 
   void previousStep() {
-    if (currentStep > 1 && currentStep < _totalSteps) {
-      currentStep--;
+    if (state > 1) {
+      emit(state - 1);
       _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
-      notifyListeners();
     }
   }
 }
+

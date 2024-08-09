@@ -20,7 +20,6 @@ class StepperIndicator extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                // Background Line
                 Container(
                   height: 10.0,
                   width: MediaQuery.of(context).size.width,
@@ -29,7 +28,6 @@ class StepperIndicator extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                // Progress Line
                 Stack(
                   children: [
                     Container(
@@ -38,7 +36,8 @@ class StepperIndicator extends StatelessWidget {
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      width: MediaQuery.of(context).size.width * (currentStep / totalSteps),
+                      width: MediaQuery.of(context).size.width *
+                          (currentStep / totalSteps),
                     ),
                     if (currentStep / totalSteps != 1)
                       Positioned(
@@ -46,11 +45,11 @@ class StepperIndicator extends StatelessWidget {
                         child: Container(
                           width: 5.0,
                           height: 5.0,
-                          margin: const EdgeInsets.symmetric(vertical: 2.5, horizontal: 3.5),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 2.5, horizontal: 3.5),
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
-                            border: Border(),
                           ),
                         ),
                       ),

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
+import '../../../../core/constants/text.dart';
 
 class BirthdaySelectWidget extends StatefulWidget {
-  final String hint;
   final Function(DateTime) onDateSelected;
 
   const BirthdaySelectWidget({
     super.key,
-    required this.hint,
     required this.onDateSelected,
   });
 
@@ -52,7 +51,7 @@ class _BirthdaySelectWidgetState extends State<BirthdaySelectWidget> {
               Icons.calendar_month,
               color: Color(AppColors.grayText),
             ),
-            hintText: widget.hint,
+            hintText: AppText.birthday,
             hintStyle: AppStyles.styleBold16(
                 context: context, color: Color(AppColors.grayText)),
             enabledBorder: OutlineInputBorder(

@@ -14,7 +14,7 @@ class FinalScreen extends StatefulWidget {
   State<FinalScreen> createState() => _FinalScreenState();
 }
 
-late ConfettiController _controllerCenter;
+final _controllerCenter = ConfettiController(duration: const Duration(seconds: 10));
 
 Path drawStar(Size size) {
   double degToRad(double deg) => deg * (pi / 180.0);
@@ -41,18 +41,17 @@ class _FinalScreenState extends State<FinalScreen> {
   @override
   void initState() {
     super.initState();
-    _controllerCenter = ConfettiController(duration: const Duration(seconds: 10));
-    _controllerCenter.play();  }
+    _controllerCenter.play();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child:  Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Stack(children: <Widget>[
-            //CENTER -- Blast
             Align(
               alignment: Alignment.center,
               child: ConfettiWidget(
@@ -78,18 +77,41 @@ class _FinalScreenState extends State<FinalScreen> {
               ),
               padding: const EdgeInsets.all(20),
               child: const Center(
-                child:    Icon(Icons.check, color: Colors.white,size: 100,),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 100,
+                ),
               ),
             )
           ]),
-          SizedBox(height: 20,),
-          Text(
-            AppText.succesPayment, style: AppStyles.styleBold16(context: context, color: Colors.green),
-
+          SizedBox(
+            height: 20,
           ),
-          SizedBox(height: 5,),
-          Text(AppText.thankYou, style: AppStyles.styleRegular14(context: context, color: Colors.green),)
-          ,   SizedBox(height: 40,),ButtonWidget(widget: Text(AppText.redirect, style: AppStyles.styleBold18(context: context, color: Colors.white),))
+          Text(
+            AppText.succesPayment,
+            style: AppStyles.styleBold16(context: context, color: Colors.green),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            AppText.thankYou,
+            style: AppStyles.styleRegular14(context: context, color: Colors.green),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          GestureDetector(
+            onTap: (){
+              _controllerCenter.play();
+            },
+        child:
+          ButtonWidget(
+              widget: Text(
+            AppText.redirect,
+            style: AppStyles.styleBold18(context: context, color: Colors.white),
+          )))
         ],
       ),
     );

@@ -72,7 +72,7 @@ class _RegistrationOptionsState extends State<RegistrationOptions> {
               ),
               GestureDetector(
                 onTap: () {
-                  navigateTo(context, const NewRegistration());
+                  navigateTo(context,  NewRegistration());
                 },
                 child: ButtonWidget(
                   widget: Text(

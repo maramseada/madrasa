@@ -7,8 +7,11 @@ import 'package:trials/features/continue_register/presentation/controller/materi
 import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 import 'package:trials/features/credit_card/data/payment_data_source.dart';
 import 'package:trials/features/credit_card/presentation/controllers/payment_cubit.dart';
+import 'package:trials/features/registration/data/data_source/register_data_source.dart';
+import 'package:trials/features/registration/presentation/controller/Auth_cubit/register_cubit.dart';
 
 import '../../../../core/constants/font_styles.dart';
+import '../../../registration/presentation/controller/sign_up_controller.dart';
 import '../../data/data_source/material_data_source.dart';
 import '../../data/data_source/timing_data_source.dart';
 import '../controller/Timing/timing_cubit.dart';
@@ -16,7 +19,11 @@ import '../controller/purposes/purposes_cubit.dart';
 import 'stepper_screen.dart';
 
 class ReservationsSalonPage extends StatelessWidget {
-  const ReservationsSalonPage({super.key});
+  final SignUpController controller;
+  const ReservationsSalonPage({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +45,14 @@ class ReservationsSalonPage extends StatelessWidget {
                   children: [
                     Text(
                       AppText.elmadrash,
-                      style: AppStyles.styleBold30(
-                          context: context, color: Colors.green),
+                      style: AppStyles.styleBold30(context: context, color: Colors.green),
                     ),
                     const SizedBox(
                       height: 7,
                     ),
                     Text(
                       AppText.elmadrashCom,
-                      style: AppStyles.styleRegular18(
-                          context: context, color: Colors.green),
+                      style: AppStyles.styleRegular18(context: context, color: Colors.green),
                     ),
                   ],
                 ),
@@ -58,19 +63,15 @@ class ReservationsSalonPage extends StatelessWidget {
             providers: [
               BlocProvider(create: (context) => MaterialCubit(MaterialData())),
               BlocProvider(create: (context) => PurposesCubit(PurposeData())),
-              BlocProvider(
-                  create: (context) => TimingCubit(TimingData())..getTimings()),
-              BlocProvider(
-                  create: (context) =>
-                      PurposesCubit(PurposeData())..getPurpose()),
-              BlocProvider(
-                  create: (context) => SubscriptionsCubit(SubscriptionData())
-                    ..getSubscriptions()),
-              BlocProvider(
-                  create: (context) => PaymentCubit(PaymentData())
-                   ),
+              BlocProvider(create: (context) => TimingCubit(TimingData())..getTimings()),
+              BlocProvider(create: (context) => PurposesCubit(PurposeData())..getPurpose()),
+              BlocProvider(create: (context) => SubscriptionsCubit(SubscriptionData())..getSubscriptions()),
+              BlocProvider(create: (context) => PaymentCubit(PaymentData())),
+              BlocProvider(create: (context) => RegisterCubit(RegisterDataSource())),
             ],
-            child: const StepperScreen(),
+            child: StepperScreen(
+              controller: controller,
+            ),
           ),
         ),
       ),

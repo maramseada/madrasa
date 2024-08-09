@@ -35,7 +35,7 @@ class EmailTextField extends StatelessWidget {
               decoration: InputDecoration(
                 hintText:hintText?? 'البريد الاكتروني',
 
-                hintStyle: AppStyles.styleRegular14(context: context),
+                hintStyle: AppStyles.styleRegular14(context: context, color: Color(AppColors.grayText)),
                 border: InputBorder.none, // Remove the inner border to avoid conflict with outer border
                 contentPadding: const EdgeInsets.symmetric(vertical: 10), // Add vertical padding for better alignment
               ),

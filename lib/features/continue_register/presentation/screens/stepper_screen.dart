@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/presentation/screens/school_year_page.dart';
 import 'package:trials/features/continue_register/presentation/screens/timing_screen.dart';
 
 import '../../../credit_card/presentation/screens/credit_card_screen.dart';
+import '../../../registration/presentation/controller/sign_up_controller.dart';
 import '../components/navigations_buttons.dart';
 import '../components/stepper_indicator.dart';
 import '../controller/stepper_controller.dart';
@@ -12,132 +14,107 @@ import 'contact_info_page.dart';
 import 'final_screen.dart';
 import 'number_students_goals_page.dart';
 
-class StepperScreen extends StatefulWidget {
-  const StepperScreen({super.key});
+class StepperScreen extends StatelessWidget {
+final SignUpController controller;
 
-  @override
-  _StepperScreenState createState() => _StepperScreenState();
-}
-
-class _StepperScreenState extends State<StepperScreen> {
-  late StepperController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = StepperController();
-  }
+  const StepperScreen({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          StepperIndicator(
-            currentStep: _controller.currentStep,
-            totalSteps: _controller.totalSteps,
-          ),
-          Expanded(
-            child: PageView(
-              controller: _controller.pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                const ContactInfo(),
-                const SchoolYearPage(),
-                ChooseMaterialPage(
-                  onSelectionChanged: (selectedIndexes) {
-                    setState(() {
-                      _controller.selectedSubjects = selectedIndexes;
-                    });
-                  },
-                ),
-                NumberStudentsGoalsPage(
-                  onGoalSelectionChanged: (selectedIndexes) {
-                    setState(() {
-                      _controller.selectedGoals = selectedIndexes;
-                    });
-                  },
-                  onStudentCountChanged: (count) {
-                    setState(() {
-                      _controller.studentCount = count.toString();
-                    });
-                  },
-                ),
-                TimingPage(
-                  onDaysChanged: (List<int> value) {
-                    setState(() {
-                      _controller.selectedDays = value;
-                    });
-                  },
-                  onPeriodChanged: (int? value) {
-                    setState(() {
-                      _controller.shift = value == 1 ? 'night' : 'day';
-                    });
-                  },
-                  onTimingChanged: (int? value) {
-                    setState(() {
-                      _controller.timing = value == 1 ? '15:00' : '12:00';
-                    });
-                  },
-                ),
-                ClassesTimePage(
-                  onClassCountChanged: (int? value) {
-                    setState(() {
-                      _controller.selectedClassCount = value == 1 ? 'one' : 'two';
-                    });
-                  },
-                  onClassHoursChanged: (String? value) {
-                    setState(() {
-                      _controller.selectedClassHours = value;
-                    });
-                  },
-                  onSubscriptionChanged: (int? value) {
-                    setState(() {
-                      _controller.selectedSubscription = value;
-                    });
-                  },
-                ),
-                CreditCardScreen(
-                  onCardNumberChanged: (String? value) {
-                    setState(() {
-                      _controller.numberCard = value == 1 ? 'one' : 'two';
-                    });
-                  },
-                  onCardNameChanged: (String? value) {
-                    setState(() {
-                      _controller.cardName = value;
-                    });
-                  },
-                  onPinChanged: (int? value) {
-                    setState(() {
-                      _controller.cvc = value;
-                    });
-                  },
-                  onExpDateChanged: (String? value) {
-                    setState(() {
-                      _controller.expDateCard = value;
-                    });
-                  },
-                ),
-                FinalScreen()
-              ],
+    return BlocProvider(
+      create: (_) => StepperCubit(controller),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            BlocBuilder<StepperCubit, int>(
+              builder: (context, currentStep) {
+                final cubit = context.read<StepperCubit>();
+                return StepperIndicator(
+                  currentStep: currentStep,
+                  totalSteps: cubit.totalSteps,
+                );
+              },
             ),
-          ),
-          NavigationButtons(
-            currentStep: _controller.currentStep,
-            totalSteps: _controller.totalSteps,
-            onPrevious: () => _controller.previousStep(),
-            onNext: () => _controller.nextStep(context),
-          ),
-        ],
+            Expanded(
+              child: BlocBuilder<StepperCubit, int>(
+                builder: (context, currentStep) {
+                  final cubit = context.read<StepperCubit>();
+                  return PageView(
+                    controller: cubit.pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                       ContactInfo(controller: controller,),
+                      const SchoolYearPage(),
+                      ChooseMaterialPage(
+                        onSelectionChanged: (selectedIndexes) {
+                          cubit.selectedSubjects = selectedIndexes;
+                        },
+                      ),
+                      NumberStudentsGoalsPage(
+                        onGoalSelectionChanged: (selectedIndexes) {
+                          cubit.selectedGoals = selectedIndexes;
+                        },
+                        onStudentCountChanged: (count) {
+                          cubit.studentCount = count.toString();
+                        },
+                      ),
+                      TimingPage(
+                        onDaysChanged: (List<int> value) {
+                          cubit.selectedDays = value;
+                        },
+                        onPeriodChanged: (int? value) {
+                          cubit.shift = value == 1 ? 'night' : 'day';
+                        },
+                        onTimingChanged: (int? value) {
+                          cubit.timing = value == 1 ? '15:00' : '12:00';
+                        },
+                      ),
+                      ClassesTimePage(
+                        onClassCountChanged: (int? value) {
+                          cubit.selectedClassCount = value == 1 ? 'one' : 'two';
+                        },
+                        onClassHoursChanged: (String? value) {
+                          cubit.selectedClassHours = value;
+                        },
+                        onSubscriptionChanged: (int? value) {
+                          cubit.selectedSubscription = value;
+                        },
+                      ),
+                      CreditCardScreen(
+                        onCardNumberChanged: (String? value) {
+                          cubit.numberCard = value == 1 ? 'one' : 'two';
+                        },
+                        onCardNameChanged: (String? value) {
+                          cubit.cardName = value;
+                        },
+                        onPinChanged: (int? value) {
+                          cubit.cvc = value;
+                        },
+                        onExpDateChanged: (String? value) {
+                          cubit.expDateCard = value;
+                        },
+                      ),
+                      FinalScreen(),
+                    ],
+                  );
+                },
+              ),
+            ),
+            BlocBuilder<StepperCubit, int>(
+              builder: (context, currentStep) {
+                final cubit = context.read<StepperCubit>();
+                return NavigationButtons(
+                  currentStep: currentStep,
+                  totalSteps: cubit.totalSteps,
+                  onPrevious: () => cubit.previousStep(),
+                  onNext: () => cubit.nextStep(context),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.pageController.dispose();
-    super.dispose();
   }
 }
