@@ -4,6 +4,7 @@ import 'package:trials/features/continue_register/data/models/material_model.dar
 
 import '../../../../core/api.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/shared_pref.dart';
 
 class MaterialData {
   Future getMaterials() async {
@@ -24,8 +25,9 @@ class MaterialData {
     }
   }
 
-  Future postMaterials({required int id, required List<int> materials}) async {
+  Future postMaterials({required List<int> materials}) async {
     try {
+      final id = await getString('id');
       FormData formData = FormData.fromMap({
         'form': id,
         'materials': materials,

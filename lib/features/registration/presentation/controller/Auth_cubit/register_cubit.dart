@@ -8,7 +8,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   String? message;
   RegisterCubit(this.api) : super(RegisterInitial());
 
-  void pay(
+   register(
       {int? age,
       required String firstName,
       required String secondName,
@@ -37,11 +37,12 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(RegisterSuccess(
         message: message,
       ));
-      debugPrint('nlkesfnefn$message');
+      return true;
     } on Exception catch (e, stackTrace) {
       emit(RegisterFailure(errMessage: 'error: $e'));
       debugPrint('$e');
       debugPrint('$stackTrace');
+      return false;
     }
   }
 }

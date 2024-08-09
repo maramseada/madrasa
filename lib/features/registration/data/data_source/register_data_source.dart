@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
 import '../../../../core/api.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/shared_pref.dart';
 
 class RegisterDataSource {
   Future register(
@@ -33,10 +34,10 @@ class RegisterDataSource {
         url: '${AppConstants().baseUrl}form/',
         formData: formData,
       );
-
-      int data = response['id'];
-      debugPrint('$data');
-      return data.toString();
+      String id = response['id'].toString();
+      await saveData('id', str: id);
+      debugPrint('$id');
+      return id.toString();
     } catch (e) {
       debugPrint('Error loading profile data: $e');
       rethrow; // Rethrow the caught exception to propagate it up the call stack

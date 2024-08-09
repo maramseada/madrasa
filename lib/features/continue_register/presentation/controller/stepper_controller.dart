@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 import 'package:trials/features/credit_card/presentation/controllers/payment_cubit.dart';
@@ -10,7 +11,6 @@ import 'Timing/timing_cubit.dart';
 import 'materials/material_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class StepperCubit extends Cubit<int> {
   StepperCubit(this.signUpController) : super(1);
@@ -34,14 +34,12 @@ class StepperCubit extends Cubit<int> {
   String? expDateCard;
   String? cardName;
 
-  void nextStep(BuildContext context) async {
+  Future<void> nextStep(BuildContext context) async {
+    bool success = true;
+
     switch (state) {
       case 1:
-
-
-
-
-        BlocProvider.of<RegisterCubit>(context).pay(
+        success = await BlocProvider.of<RegisterCubit>(context).register(
           firstName: signUpController.name!,
           secondName: signUpController.familyName!,
           whatsapp: signUpController.phone!,
@@ -58,99 +56,156 @@ class StepperCubit extends Cubit<int> {
       case 3:
         if (selectedSubjects.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select at least one subject')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء اختيار المواد الدراسية',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
-        BlocProvider.of<MaterialCubit>(context).postMaterials(id: 792, materials: selectedSubjects);
+        success = await BlocProvider.of<MaterialCubit>(context).postMaterials(materials: selectedSubjects);
         break;
       case 4:
         if (selectedGoals.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select at least one Goal')),
+
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال هدف واحد على الاقل',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
           );
           return;
         }
         if (studentCount == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select the number of students')),
+
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال عدد الطلاب',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
           );
           return;
         }
-        BlocProvider.of<PurposesCubit>(context).postPurpose(id: 792, purposes: selectedGoals, count: studentCount!);
+        success = await BlocProvider.of<PurposesCubit>(context).postPurpose(purposes: selectedGoals, count: studentCount!);
         break;
       case 5:
         if (selectedDays.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select at least one day')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال الايام المناسبة لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
           );
           return;
         }
         if (shift == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select the number of shift')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال الفترة الزمنية المناسبة لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
           );
           return;
         }
         if (timing == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select time')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال التوقيت المناسبة لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
-        BlocProvider.of<TimingCubit>(context).postTimings(id: 792, days: selectedDays, time: timing!, shift: shift!);
+        success = await BlocProvider.of<TimingCubit>(context).postTimings(days: selectedDays, time: timing!, shift: shift!);
         break;
       case 6:
         if (selectedSubscription == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select at least one subscription')),
+                      SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال مده الاشتراك المناسبة لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
         if (selectedClassCount == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select the number of class count')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال عدد الحصص اسبوعيا المناسب لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
         if (selectedClassHours == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please select class hours')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال عدد ساعات الحصة الواحدة المناسب لك',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
-        BlocProvider.of<SubscriptionsCubit>(context).postSubscriptions(id: 792, subscription: selectedSubscription!, session: selectedClassCount!, hour: selectedClassHours!);
+        success = await BlocProvider.of<SubscriptionsCubit>(context).postSubscriptions(subscription: selectedSubscription!, session: selectedClassCount!, hour: selectedClassHours!);
         break;
       case 7:
         if (cvc == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter CVC')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال رمز الحماية',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
         if (numberCard == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter card number')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال رقم البطاقة',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
         if (expDateCard == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter expiration date')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال تاريخ انتهاء الصلاحية',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
+
           );
           return;
         }
         if (cardName == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter card name')),
+            SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('برجاء ادخال الاسم على البطاقة',
+                  style: AppStyles.style40016(context: context, color: Colors.white),)),
           );
           return;
         }
-        BlocProvider.of<PaymentCubit>(context).pay(id: 793, cvc: cvc!, numberCard: numberCard!, expDate: expDateCard!, name: cardName!);
+        success = await BlocProvider.of<PaymentCubit>(context).pay( cvc: cvc!, numberCard: numberCard!, expDate: expDateCard!, name: cardName!);
         break;
     }
-
-    if (state < totalSteps) {
+if(success == false){
+  ScaffoldMessenger.of(context).showSnackBar(
+    
+     SnackBar(
+        backgroundColor: Colors.green,
+        content: Text('يوجد مشكلة في الاتصال بالانترنت الرجاء المحاولة لاحقا',
+          style: AppStyles.style40016(context: context, color: Colors.white),)),
+  );
+}
+    if (success && state < totalSteps) {
       emit(state + 1);
       _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
@@ -163,4 +218,3 @@ class StepperCubit extends Cubit<int> {
     }
   }
 }
-

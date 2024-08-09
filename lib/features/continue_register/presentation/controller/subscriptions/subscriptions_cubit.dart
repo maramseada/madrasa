@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/data/data_source/subscriptions_data_Source.dart';
 
@@ -21,26 +22,26 @@ class SubscriptionsCubit extends Cubit<SubscriptionsState> {
       emit(SubscriptionsSuccess(
         data: data,
       ));
-      print('nlkesfnefn$message');
     } on Exception catch (e, stackTrace) {
       emit(SubscriptionsFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
     }
   }
 
-  void postSubscriptions({required int id, required int subscription, required String session, required String hour}) async {
+   postSubscriptions({required int subscription, required String session, required String hour}) async {
     emit(SubscriptionsLoading());
     try {
-      message = await api.postSubscriptions(id: id, hour: hour, session: session, subscription: subscription);
+      message = await api.postSubscriptions( hour: hour, session: session, subscription: subscription);
       emit(PostSubscriptionsSuccess(
         message: message,
       ));
-      print('nlkesfnefn$message');
+      return true;
     } on Exception catch (e, stackTrace) {
       emit(SubscriptionsFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
+      return false;
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/data/data_source/material_data_source.dart';
 import 'package:trials/features/continue_register/data/models/material_model.dart';
@@ -10,7 +11,7 @@ class MaterialCubit extends Cubit<MaterialsState> {
   List<MaterialModel>? data;
   MaterialCubit(this.api) : super(MaterialInitial());
 
-  void getMaterials() async {
+   getMaterials() async {
     emit(MaterialLoading());
     try {
       data = await api.getMaterials();
@@ -20,21 +21,25 @@ class MaterialCubit extends Cubit<MaterialsState> {
       print('nlkesfnefn$message');
     } on Exception catch (e, stackTrace) {
       emit(MaterialFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
+
     }
-  }  void postMaterials({required int id, required List<int> materials}) async {
+  }   postMaterials({ required List<int> materials}) async {
     emit(MaterialLoading());
     try {
-      message = await api.postMaterials(id: id, materials: materials);
+      message = await api.postMaterials(materials: materials);
       emit(PostMaterialSuccess(
         message: message,
       ));
-      print('nlkesfnefn$message');
+      return true;
     } on Exception catch (e, stackTrace) {
       emit(MaterialFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
+
+      return false;
+
     }
   }
 }

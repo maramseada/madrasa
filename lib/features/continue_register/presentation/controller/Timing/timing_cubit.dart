@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/features/continue_register/data/models/day_model.dart';
 import 'package:trials/features/continue_register/presentation/controller/Timing/timing_state.dart';
@@ -26,15 +27,15 @@ class TimingCubit extends Cubit<TimingState> {
     }
   }
 
-  void postTimings(
-      {required int id,
+   postTimings(
+      {
       required List<int> days,
       required String shift,
       required String time}) async {
     emit(TimingLoading());
     try {
       message = await api.postTimings(
-        id: id,
+
         time: time,
         shift: shift,
         days: days,
@@ -42,11 +43,13 @@ class TimingCubit extends Cubit<TimingState> {
       emit(TimingSuccess(
         message: message,
       ));
-      print('nlkesfnefn$message');
+      return true;
+
     } on Exception catch (e, stackTrace) {
       emit(TimingFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
+      return false;
     }
   }
 }

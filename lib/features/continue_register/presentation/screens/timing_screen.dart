@@ -74,7 +74,7 @@ class _TimingPageState extends State<TimingPage> {
               ),
               atRestEffect: WidgetRestingEffects.none(),
               child: Text(
-                AppText.studentCount,
+                AppText.suitableDays,
                 style: AppStyles.styleBold18(context: context),
               ),
             ),

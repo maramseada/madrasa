@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/api.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/shared_pref.dart';
 import '../models/supscription_model.dart';
 
 class SubscriptionData {
@@ -25,8 +26,9 @@ class SubscriptionData {
     }
   }
 
-  Future postSubscriptions({required int id, required String hour, required String session, required int subscription}) async {
+  Future postSubscriptions({required String hour, required String session, required int subscription}) async {
     try {
+      final id = await getString('id');
       FormData formData = FormData.fromMap({
         'form': id,
         'hour': hour,

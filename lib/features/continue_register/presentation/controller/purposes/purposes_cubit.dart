@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:trials/features/continue_register/data/models/purpose_model.dart';
@@ -18,26 +19,26 @@ class PurposesCubit extends Cubit<PurposesState> {
       emit(PurposeSuccess(
         data: data,
       ));
-      print('nlkesfnefn$message');
     } on Exception catch (e, stackTrace) {
       emit(PurposeFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
     }
   }
 
-  void postPurpose({required int id, required List<int> purposes, required String count}) async {
+  postPurpose({required List<int> purposes, required String count}) async {
     emit(PurposeLoading());
     try {
-      message = await api.postPurposes(id: id, studentCount: count, purposes: purposes);
+      message = await api.postPurposes(studentCount: count, purposes: purposes);
       emit(PostPurposeSuccess(
         message: message,
       ));
-      print('nlkesfnefn$message');
+      return true;
     } on Exception catch (e, stackTrace) {
       emit(PurposeFailure(errMessage: 'error: $e'));
-      print(e);
-      print(stackTrace);
+      debugPrint('$e');
+      debugPrint('$stackTrace');
+      return false;
     }
   }
 }

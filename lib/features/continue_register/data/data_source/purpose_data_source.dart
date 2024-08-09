@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/api.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/shared_pref.dart';
 import '../models/purpose_model.dart';
 
 class PurposeData {
@@ -25,14 +26,16 @@ class PurposeData {
     }
   }
 
-Future postPurposes({required String studentCount, required int id, required List<int> purposes}) async {
+Future postPurposes({required String studentCount,  required List<int> purposes}) async {
   try {
+    final id = await getString('id');
+
+
     FormData formData = FormData.fromMap({
       'student_count':studentCount,
       'form': id,
       'purposes': purposes,
     });
-
     var response = await Api().post(
       url: '${AppConstants().baseUrl}count/',
       formData: formData,

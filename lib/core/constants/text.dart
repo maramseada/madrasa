@@ -40,6 +40,7 @@ class AppText {
   static String twoStudents = 'طالبان';
 
   static String moreThanTwoStudents = 'أكثر من طالبان';
+  static String suitableDays = 'الايام المناسبة لك';
 
   static String other = 'آخر';
   static String chooseSchoolYearShort = 'حدد السنة الدراسية';

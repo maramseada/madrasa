@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/shared_pref.dart';
 
 class PaymentData {
   Future<String> pay({
@@ -10,9 +11,10 @@ class PaymentData {
     required String numberCard,
     required String expDate,
     required String name,
-    required int id,
   }) async {
     try {
+      final id = await getString('id');
+
       FormData formData = FormData.fromMap({
         "card_number": numberCard,
         "cvc": cvc,

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../core/api.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/shared_pref.dart';
 import '../models/day_model.dart';
 
 class TimingData {
@@ -26,8 +27,9 @@ class TimingData {
     }
   }
 
-Future postTimings({required int id, required String time, required String shift, required List<int>days}) async {
+Future postTimings({ required String time, required String shift, required List<int>days}) async {
   try {
+    final id = await getString('id');
     FormData formData = FormData.fromMap({
       'form': id,
       'time': time,
