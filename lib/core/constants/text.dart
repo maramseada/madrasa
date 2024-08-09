@@ -67,7 +67,7 @@ class AppText {
   static String hourAndHalf = 'ساعة ونصف';
   static String twoHours = 'ساعتين';
   static String twoHoursAndHalf = 'ساعتين ونصف';
-  static String derham = 'درهم';
+  static String derham = '  درهم  ';
   static String total = 'الاجمالي';
   static String creditCard = 'بطاقة أئتمان';
   static String cardNumber= 'رقم البطاقة';
