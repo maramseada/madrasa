@@ -1,16 +1,20 @@
-# trials
 
-A new Flutter project.
+This is a readme file for madrasa test file
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+Simply run flutter pub get to install the packages 
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## packages 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The packages used are:
+
+  shared_preferences:
+                   
+  flutter_bloc:         
+  dio:             
+  svg_flutter:           
+  widget_and_text_animator:   
+  cached_network_image:            
+  confetti:
