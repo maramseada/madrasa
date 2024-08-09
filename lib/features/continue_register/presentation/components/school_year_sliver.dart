@@ -6,7 +6,8 @@ import 'choose_option__widget.dart';
 
 
 class SchoolYearSliver extends StatefulWidget {
-  const SchoolYearSliver({super.key});
+  final ValueChanged<List<String>> onSelectionChanged;
+  const SchoolYearSliver({super.key, required this.onSelectionChanged});
 
   @override
   State<SchoolYearSliver> createState() => _SchoolYearSliverState();
@@ -14,7 +15,12 @@ class SchoolYearSliver extends StatefulWidget {
 
 class _SchoolYearSliverState extends State<SchoolYearSliver> {
   List<int> indexes = [];
-
+  final Map<int, String> indexToValue = {
+    1: "fifth",
+    2: "six",
+    3: "seven",
+    4: "eight",
+  };
   @override
   Widget build(BuildContext context) {
     return        SliverToBoxAdapter(
@@ -49,6 +55,7 @@ class _SchoolYearSliverState extends State<SchoolYearSliver> {
       ),
     );
   }
+
   void _handleSelection(int index) {
     setState(() {
       if (indexes.contains(index)) {
@@ -57,6 +64,9 @@ class _SchoolYearSliverState extends State<SchoolYearSliver> {
         indexes.add(index);
       }
     });
-    print(indexes);
+
+    List<String> selectedValues = indexes.map((i) => indexToValue[i] ?? '').toList();
+    widget.onSelectionChanged(selectedValues); // Pass selected values to the callback
+    debugPrint('$selectedValues');
   }
 }

@@ -21,7 +21,7 @@ class PurposeData {
       debugPrint('$data');
       return data;
     } catch (e) {
-      print('Error loading profile data: $e');
+      debugPrint('Error: $e');
       rethrow; // Rethrow the caught exception to propagate it up the call stack
     }
   }
@@ -45,7 +45,7 @@ Future postPurposes({required String studentCount,  required List<int> purposes}
     debugPrint('$data');
     return data.toString();
   } catch (e) {
-    print('Error loading profile data: $e');
+    debugPrint('Error: $e');
     rethrow; // Rethrow the caught exception to propagate it up the call stack
   }
 }

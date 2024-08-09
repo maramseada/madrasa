@@ -22,7 +22,7 @@ class TimingData {
       debugPrint('$products');
       return products;
     } catch (e) {
-      print('Error loading profile data: $e');
+      debugPrint('Error: $e');
       rethrow; // Rethrow the caught exception to propagate it up the call stack
     }
   }
@@ -46,7 +46,7 @@ Future postTimings({ required String time, required String shift, required List<
     debugPrint('$data');
     return data.toString();
   } catch (e) {
-    print('Error loading profile data: $e');
+    debugPrint('Error: $e');
     rethrow; // Rethrow the caught exception to propagate it up the call stack
   }
 }

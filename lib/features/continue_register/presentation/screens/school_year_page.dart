@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/core/constants/text.dart';
@@ -8,12 +9,14 @@ import 'package:trials/features/continue_register/presentation/components/school
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 import '../../../../core/constants/font_size.dart';
+import '../controller/stepper_controller.dart';
 
 class SchoolYearPage extends StatelessWidget {
   const SchoolYearPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<StepperCubit>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: CustomScrollView(
@@ -67,7 +70,11 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolLevelSliver(),
+          SchoolLevelSliver(     onSelectionChanged: (selectedValues) {
+            cubit.selectedLevel = selectedValues; // Update Cubit with selected values
+
+            print(cubit.selectedLevel);
+          },),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
@@ -84,7 +91,11 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolYearSliver(),
+          SchoolYearSliver(     onSelectionChanged: (selectedValues) {
+            cubit.selectedYear = selectedValues; // Update Cubit with selected values
+
+            print(cubit.selectedYear);
+          },),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
@@ -101,7 +112,13 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolSubjectSliver(),
+        SchoolSubjectSliver(
+        onSelectionChanged: (selectedValues) {
+              cubit.selectedCourseStudy = selectedValues; // Update Cubit with selected values
+
+              print(cubit.selectedCourseStudy);
+        },
+          ),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 10,

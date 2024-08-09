@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/features/continue_register/presentation/controller/purposes/purposes_cubit.dart';
+import 'package:trials/features/continue_register/presentation/controller/study_details/study_details_cubit.dart';
 import 'package:trials/features/continue_register/presentation/controller/subscriptions/subscriptions_cubit.dart';
 import 'package:trials/features/credit_card/presentation/controllers/payment_cubit.dart';
 import 'package:trials/features/registration/presentation/controller/Auth_cubit/register_cubit.dart';
@@ -21,6 +22,9 @@ class StepperCubit extends Cubit<int> {
 
   SignUpController signUpController;
   List<int> selectedSubjects = [];
+  List<String> selectedCourseStudy = [];
+  List<String> selectedYear = [];
+  List<String> selectedLevel = [];
   List<int> selectedGoals = [];
   List<int> selectedDays = [];
   String? studentCount;
@@ -51,7 +55,34 @@ class StepperCubit extends Cubit<int> {
           description: signUpController.additionalNotes,
         );
         break;
-      case 2:
+      case 2:        if (selectedLevel.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('برجاء اختيار المرحلة الدراسية',
+                style: AppStyles.style40016(context: context, color: Colors.white),)),
+
+        );
+        return;
+      }     if (selectedYear.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('برجاء اختيار السنة الدراسية',
+                style: AppStyles.style40016(context: context, color: Colors.white),)),
+
+        );
+        return;
+      }     if (selectedCourseStudy.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('برجاء اختيار المنهج الدراسي ',
+                style: AppStyles.style40016(context: context, color: Colors.white),)),
+
+        );
+        return;
+      }   success = await BlocProvider.of<StudyDetailsCubit>(context).postStudyDetails(stage: selectedLevel, classroom: selectedYear, courseStudy: selectedCourseStudy);
         break;
       case 3:
         if (selectedSubjects.isEmpty) {

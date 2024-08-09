@@ -13,9 +13,11 @@ import 'package:trials/features/registration/presentation/controller/Auth_cubit/
 import '../../../../core/constants/font_styles.dart';
 import '../../../registration/presentation/controller/sign_up_controller.dart';
 import '../../data/data_source/material_data_source.dart';
+import '../../data/data_source/study_details_data_source.dart';
 import '../../data/data_source/timing_data_source.dart';
 import '../controller/Timing/timing_cubit.dart';
 import '../controller/purposes/purposes_cubit.dart';
+import '../controller/study_details/study_details_cubit.dart';
 import 'stepper_screen.dart';
 
 class ReservationsSalonPage extends StatelessWidget {
@@ -68,6 +70,7 @@ class ReservationsSalonPage extends StatelessWidget {
               BlocProvider(create: (context) => SubscriptionsCubit(SubscriptionData())..getSubscriptions()),
               BlocProvider(create: (context) => PaymentCubit(PaymentData())),
               BlocProvider(create: (context) => RegisterCubit(RegisterDataSource())),
+              BlocProvider(create: (context) => StudyDetailsCubit(StudyDetailsData()),),
             ],
             child: StepperScreen(
               controller: controller,

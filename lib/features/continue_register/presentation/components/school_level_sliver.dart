@@ -5,9 +5,10 @@ import 'package:trials/core/constants/text.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_styles.dart';
 import 'choose_option__widget.dart';
-
 class SchoolLevelSliver extends StatefulWidget {
-  const SchoolLevelSliver({super.key});
+  final ValueChanged<List<String>> onSelectionChanged;
+
+  const SchoolLevelSliver({super.key, required this.onSelectionChanged});
 
   @override
   State<SchoolLevelSliver> createState() => _SchoolLevelSliverState();
@@ -15,6 +16,14 @@ class SchoolLevelSliver extends StatefulWidget {
 
 class _SchoolLevelSliverState extends State<SchoolLevelSliver> {
   List<int> indexes = [];
+
+  // Define the mapping from index to the level
+  final Map<int, String> indexToValue = {
+    1: "kinder_garden",
+    2: "elementary",
+    3: "middle_school",
+    4: "high_school",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +36,25 @@ class _SchoolLevelSliverState extends State<SchoolLevelSliver> {
             index: 1,
             selectedIndex: indexes.contains(1) ? 1 : null,
             onSelected: (index) => _handleSelection(index),
-              title: AppText.kinderGarden          ),
+            title: AppText.kinderGarden,
+          ),
           ChooseOptionsWidget(
-              index: 2,
-              selectedIndex: indexes.contains(2) ? 2 : null,
-              onSelected: (index) => _handleSelection(index),
-              title: AppText.elementary
-          ),  ChooseOptionsWidget(
+            index: 2,
+            selectedIndex: indexes.contains(2) ? 2 : null,
+            onSelected: (index) => _handleSelection(index),
+            title: AppText.elementary,
+          ),
+          ChooseOptionsWidget(
             index: 3,
             selectedIndex: indexes.contains(3) ? 3 : null,
             onSelected: (index) => _handleSelection(index),
-            title: AppText.middleSchool
-          ),  ChooseOptionsWidget(
+            title: AppText.middleSchool,
+          ),
+          ChooseOptionsWidget(
             index: 4,
             selectedIndex: indexes.contains(4) ? 4 : null,
             onSelected: (index) => _handleSelection(index),
-            title: AppText.highSchool
+            title: AppText.highSchool,
           ),
         ],
       ),
@@ -57,6 +69,9 @@ class _SchoolLevelSliverState extends State<SchoolLevelSliver> {
         indexes.add(index);
       }
     });
-    print(indexes);
+
+    List<String> selectedValues = indexes.map((i) => indexToValue[i] ?? '').toList();
+    widget.onSelectionChanged(selectedValues); // Pass selected values to the callback
+    debugPrint('$selectedValues');
   }
 }

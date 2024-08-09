@@ -45,7 +45,10 @@ final SignUpController controller;
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                        ContactInfo(controller: controller,),
-                      const SchoolYearPage(),
+                      const SchoolYearPage(
+
+
+                      ),
                       ChooseMaterialPage(
                         onSelectionChanged: (selectedIndexes) {
                           cubit.selectedSubjects = selectedIndexes;
