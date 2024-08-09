@@ -70,20 +70,28 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolLevelSliver(     onSelectionChanged: (selectedValues) {
-            cubit.selectedLevel = selectedValues; // Update Cubit with selected values
+          SchoolLevelSliver(
+            onSelectionChanged: (selectedValues) {
+              cubit.selectedLevel = selectedValues; // Update Cubit with selected values
 
-            print(cubit.selectedLevel);
-          },),
+              print(cubit.selectedLevel);
+            },
+          ),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
             ),
           ),
           SliverToBoxAdapter(
-            child: Text(
-              'حدد السنة الدراسية',
-              style: AppStyles.styleBold18(context: context),
+            child: WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child: Text(
+                'حدد السنة الدراسية',
+                style: AppStyles.styleBold18(context: context),
+              ),
             ),
           ),
           const SliverToBoxAdapter(
@@ -91,20 +99,28 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-          SchoolYearSliver(     onSelectionChanged: (selectedValues) {
-            cubit.selectedYear = selectedValues; // Update Cubit with selected values
-
-            print(cubit.selectedYear);
-          },),
+          SchoolYearSliver(
+            onSelectionChanged: (selectedValues) {
+              cubit.selectedYear = selectedValues; // Update Cubit with selected values
+            },
+          ),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 20,
             ),
           ),
           SliverToBoxAdapter(
-            child: Text(
-              'حدد المنهج الدراسية',
-              style: AppStyles.styleBold18(context: context),
+
+              child: WidgetAnimator(
+                incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                  duration: const Duration(seconds: 1),
+                ),
+                atRestEffect: WidgetRestingEffects.none(),
+                child: Text(
+                  'حدد المنهج الدراسية',
+                  style: AppStyles.styleBold18(context: context),
+                ),
+
             ),
           ),
           const SliverToBoxAdapter(
@@ -112,12 +128,12 @@ class SchoolYearPage extends StatelessWidget {
               height: 10,
             ),
           ),
-        SchoolSubjectSliver(
-        onSelectionChanged: (selectedValues) {
+          SchoolSubjectSliver(
+            onSelectionChanged: (selectedValues) {
               cubit.selectedCourseStudy = selectedValues; // Update Cubit with selected values
 
               print(cubit.selectedCourseStudy);
-        },
+            },
           ),
           const SliverToBoxAdapter(
             child: SizedBox(

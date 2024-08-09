@@ -22,9 +22,21 @@ class AppText {
       'هل ترغب في تقديم اي ملاحظات اضافيه حول احتياجاتك الشخصيه او احتياجك الي الدعم؟';
   static String chooseSchoolYear =
       'اختر المرحله اللتي تناسبك ونضمن لك افضل الخيارات التعليمية المتاحة ';
+  static String chooseSubscription=
+      'كون الباقة اللتي تتناسب مع احتياجاتك وسنضمن لك اقصى استفاده من كل حصة';
   static String continuecontactInfo =
       'نحن هنا لمساعدتك في رحلتك التعلبمبه املأ بينات الاتصال الخاصة بك لنتمكن من توجيهك خطوة بخطوة ';
+   static String paymentText =
+      'يسر وسهولة للبدء في رحلتك الرائعة نحو التعليم الممتع و المفيد ';
+  static String completeData =
+      'املا المعلومات الاضافية لتمكيننا من توفير تجربة مخصصه لاختياجاتك الفردية';
+  static String chooseTiming =
+      'حدد الفترة الزمنية المناسبة لك وسننظم الحصص وفقا لجدولك الزمني بكل دقة ';
+  static String thankYouText =
+      'شكرا لثقتك بنا نحن في انتظارك لنبدأ معا رحلة تعلم ملهمه ومثمرة ';
 
+  static String male = 'ذكر';
+  static String female = 'أنثى';
   static String studentCount = 'ما عدد الطلاب المشتركين';
   static String timingShort = 'ما الفترة الزمنية المناسبة لك؟ ';
   static String chooseTimeShort = 'أختر التوقيت المناسب لك ';

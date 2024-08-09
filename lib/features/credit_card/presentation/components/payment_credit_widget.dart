@@ -28,7 +28,9 @@ class PaymentCreditWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: Row(
         children: [
-          SvgPicture.asset(AppImages.creditCard),
+          SvgPicture.asset(AppImages.creditCard, width: 20,),
+          const SizedBox(width: 10),  SvgPicture.asset(AppImages.creditCard, width: 20,),
+          const SizedBox(width: 10),  SvgPicture.asset(AppImages.creditCard, width: 20,),
           const Spacer(),
           const SizedBox(width: 10), // Add some space between the radio button and the text
           Text(

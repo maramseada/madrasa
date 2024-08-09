@@ -43,7 +43,7 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
             children: [
               RegisterNewAnimatingText(
                 color: Colors.green,
-                text: AppText.continuecontactInfo,
+                text: AppText.paymentText,
               ),
               WidgetAnimator(
                 incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(

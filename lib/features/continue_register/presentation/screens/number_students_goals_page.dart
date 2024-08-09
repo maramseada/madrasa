@@ -62,7 +62,7 @@ class _NumberStudentsGoalsPageState extends State<NumberStudentsGoalsPage> {
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       child: Text(
                         textAlign: TextAlign.right,
-                        AppText.chooseSchoolYear,
+                        AppText.completeData,
                         maxLines: 4,
                       ),
                     ),

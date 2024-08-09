@@ -59,7 +59,7 @@ class _ClassesTimePageState extends State<ClassesTimePage> {
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       child: Text(
                         textAlign: TextAlign.right,
-                        AppText.chooseSchoolYear,
+                        AppText.chooseSubscription,
                         maxLines: 4,
                       ),
                     ),

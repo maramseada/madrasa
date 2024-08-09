@@ -44,11 +44,13 @@ class PhoneTextField extends StatelessWidget {
               ],
               textAlign: TextAlign.right,
               maxLength: 11,
+
               decoration:  InputDecoration(
                 hintText: hintText,
                 border: InputBorder
                     .none, // Remove the inner border to avoid conflict with outer border
                 hintStyle: AppStyles.styleRegular14(context: context, color: Color(AppColors.grayText)),
+                counterText: '', // This hides the counter text
                 contentPadding: const EdgeInsets.symmetric(
                     vertical:
                     10),

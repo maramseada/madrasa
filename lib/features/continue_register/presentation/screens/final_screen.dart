@@ -6,6 +6,7 @@ import 'package:trials/core/constants/font_styles.dart';
 import 'package:trials/core/constants/text.dart';
 
 import '../../../../core/constants/components/button_widget.dart';
+import '../../../registration/presentation/components/register_new_animating_text.dart';
 
 class FinalScreen extends StatefulWidget {
   const FinalScreen({super.key});
@@ -51,6 +52,10 @@ class _FinalScreenState extends State<FinalScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          RegisterNewAnimatingText(
+            color: Colors.yellow,
+            text: AppText.thankYouText,
+          ),
           Stack(children: <Widget>[
             Align(
               alignment: Alignment.center,

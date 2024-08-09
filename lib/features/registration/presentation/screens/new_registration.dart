@@ -51,7 +51,12 @@ class _NewRegistrationState extends State<NewRegistration> {
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-                  NameTextField(
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:    NameTextField(
                     onChanged: (value) {
              setState(() {
                controller.name = value;
@@ -60,60 +65,88 @@ class _NewRegistrationState extends State<NewRegistration> {
                     },   hintText: AppText.name,
                     controller: controller.nameController,
                     errorText: controller.nameErrorText,
-                  ),
+                  ),   ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-                  FamilyNameTextField(
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:  FamilyNameTextField(
                     onChanged: (value) {
                       controller.familyName = value;
                       debugPrint( controller.familyName);
                     },   hintText: AppText.familyName,
                     controller: controller.secondNameController,
                     errorText: controller.secondNameErrorText,
-                  ),
+                  ), ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
 
 
-                  PhoneTextField(
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:     PhoneTextField(
                     onChanged: (value) {
                       controller.phone = value;
                       debugPrint( controller.phone);
                     },   hintText: AppText.mobile,
                     controller: controller.phoneController,
-                    errorText: controller.phoneErrorText,),
-                  EmailTextField(
+                    errorText: controller.phoneErrorText,),),
+                  SizedBox(
+                    height: getResponsiveFontSize(context, fontSize: 15),
+                  ),
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:  EmailTextField(
                     onChanged: (value) {
                       controller.email = value;
                       debugPrint( controller.email);
                     },   hintText: AppText.email,
                     controller: controller.emailController,
                     errorText: controller.emailErrorText,
-                  ),
+                  ),   ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-                  PasswordTextField(
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:    PasswordTextField(
                     onChanged: (value) {
                       controller.password = value;
                       debugPrint( controller.password);
                     },   hintText: AppText.password,
                     controller: controller.passwordController,
                     errorText: controller.passwordErrorText,
-                  ),
+                  ),   ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-                  PasswordTextField(
+            WidgetAnimator(
+              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                duration: const Duration(seconds: 1),
+              ),
+              atRestEffect: WidgetRestingEffects.none(),
+              child:   PasswordTextField(
                     onChanged: (value) {
                       controller.confirmPassword = value;
                       debugPrint( controller.confirmPassword);
                     },   hintText: AppText.confirmPassword,
                     controller: controller.passwordControllerSecond,
                     errorText: controller.passwordErrorTextSecond,
-                  ),
+                  ),  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),

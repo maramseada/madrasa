@@ -58,7 +58,7 @@ class _TimingPageState extends State<TimingPage> {
                       width: MediaQuery.sizeOf(context).width * 0.85,
                       child: Text(
                         textAlign: TextAlign.right,
-                        AppText.chooseSchoolYear,
+                        AppText.chooseTiming,
                         maxLines: 4,
                       ),
                     ),
