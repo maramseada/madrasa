@@ -14,8 +14,6 @@ import '../components/name_text_field.dart';
 import '../components/new_register_component.dart';
 import '../components/other_options_register_with_widget.dart';
 import '../components/password_text_field.dart';
-import 'package:flutter/material.dart';
-
 import '../components/phone_text_field.dart';
 import '../controller/sign_up_controller.dart';
 
@@ -51,124 +49,98 @@ class _NewRegistrationState extends State<NewRegistration> {
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:    NameTextField(
+                  NameTextField(
                     onChanged: (value) {
-             setState(() {
-               controller.name = value;
-             });
-                      debugPrint( controller.name);
-                    },   hintText: AppText.name,
+                      setState(() {
+                        controller.name = value;
+                      });
+                      debugPrint(controller.name);
+                    },
+                    hintText: AppText.name,
                     controller: controller.nameController,
                     errorText: controller.nameErrorText,
-                  ),   ),
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:  FamilyNameTextField(
+                  FamilyNameTextField(
                     onChanged: (value) {
                       controller.familyName = value;
-                      debugPrint( controller.familyName);
-                    },   hintText: AppText.familyName,
+                      debugPrint(controller.familyName);
+                    },
+                    hintText: AppText.familyName,
                     controller: controller.secondNameController,
                     errorText: controller.secondNameErrorText,
-                  ), ),
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-
-
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:     PhoneTextField(
+                  PhoneTextField(
                     onChanged: (value) {
                       controller.phone = value;
-                      debugPrint( controller.phone);
-                    },   hintText: AppText.mobile,
+                      debugPrint(controller.phone);
+                    },
+                    hintText: AppText.mobile,
                     controller: controller.phoneController,
-                    errorText: controller.phoneErrorText,),),
+                    errorText: controller.phoneErrorText,
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:  EmailTextField(
+                  EmailTextField(
                     onChanged: (value) {
                       controller.email = value;
-                      debugPrint( controller.email);
-                    },   hintText: AppText.email,
+                      debugPrint(controller.email);
+                    },
+                    hintText: AppText.email,
                     controller: controller.emailController,
                     errorText: controller.emailErrorText,
-                  ),   ),
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:    PasswordTextField(
+                  PasswordTextField(
                     onChanged: (value) {
                       controller.password = value;
-                      debugPrint( controller.password);
-                    },   hintText: AppText.password,
+                      debugPrint(controller.password);
+                    },
+                    hintText: AppText.password,
                     controller: controller.passwordController,
                     errorText: controller.passwordErrorText,
-                  ),   ),
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
-            WidgetAnimator(
-              incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
-                duration: const Duration(seconds: 1),
-              ),
-              atRestEffect: WidgetRestingEffects.none(),
-              child:   PasswordTextField(
+                  PasswordTextField(
                     onChanged: (value) {
                       controller.confirmPassword = value;
-                      debugPrint( controller.confirmPassword);
-                    },   hintText: AppText.confirmPassword,
+                      debugPrint(controller.confirmPassword);
+                    },
+                    hintText: AppText.confirmPassword,
                     controller: controller.passwordControllerSecond,
                     errorText: controller.passwordErrorTextSecond,
-                  ),  ),
+                  ),
                   SizedBox(
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
                   GestureDetector(
                     onTap: () {
-
-                   controller.validateAllFields();
+                      controller.validateAllFields();
                       if (controller.isFormValid()) {
                         navigateTo(
                           context,
-                          ReservationsSalonPage(
-
-                            controller: controller    ),
+                          ReservationsSalonPage(controller: controller),
                         );
                       } else {
-                        setState(() {}); // Trigger a rebuild to show validation errors
+                        setState(
+                            () {}); // Trigger a rebuild to show validation errors
                       }
                     },
                     child: ButtonWidget(
                       widget: Text(
                         AppText.newRegister,
-                        style: AppStyles.styleBold16(context: context, color: Colors.white),
+                        style: AppStyles.styleBold16(
+                            context: context, color: Colors.white),
                       ),
                     ),
                   ),
@@ -176,7 +148,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
                   WidgetAnimator(
-                    incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                    incomingEffect:
+                        WidgetTransitionEffects.incomingSlideInFromLeft(
                       duration: const Duration(seconds: 1),
                     ),
                     atRestEffect: WidgetRestingEffects.none(),
@@ -188,7 +161,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(AppText.orRegister, style: AppStyles.style40016(context: context)),
+                          child: Text(AppText.orRegister,
+                              style: AppStyles.style40016(context: context)),
                         ),
                         const Expanded(
                           child: Divider(thickness: 1, color: Colors.grey),
@@ -200,7 +174,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
                   WidgetAnimator(
-                    incomingEffect: WidgetTransitionEffects.incomingSlideInFromRight(
+                    incomingEffect:
+                        WidgetTransitionEffects.incomingSlideInFromRight(
                       duration: const Duration(seconds: 1),
                     ),
                     atRestEffect: WidgetRestingEffects.none(),
@@ -225,7 +200,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                     height: getResponsiveFontSize(context, fontSize: 10),
                   ),
                   WidgetAnimator(
-                    incomingEffect: WidgetTransitionEffects.incomingSlideInFromLeft(
+                    incomingEffect:
+                        WidgetTransitionEffects.incomingSlideInFromLeft(
                       duration: const Duration(seconds: 1),
                     ),
                     atRestEffect: WidgetRestingEffects.none(),
@@ -249,7 +225,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                     height: getResponsiveFontSize(context, fontSize: 15),
                   ),
                   WidgetAnimator(
-                    incomingEffect: WidgetTransitionEffects.incomingSlideInFromBottom(
+                    incomingEffect:
+                        WidgetTransitionEffects.incomingSlideInFromBottom(
                       duration: const Duration(seconds: 1),
                     ),
                     atRestEffect: WidgetRestingEffects.none(),
@@ -258,7 +235,8 @@ class _NewRegistrationState extends State<NewRegistration> {
                       children: [
                         Text(
                           AppText.login,
-                          style: AppStyles.style40016(context: context, color: Colors.green),
+                          style: AppStyles.style40016(
+                              context: context, color: Colors.green),
                         ),
                         Text(
                           AppText.doYouHAveAnAccount,

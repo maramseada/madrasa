@@ -10,8 +10,6 @@ import 'package:trials/features/registration/presentation/controller/Auth_cubit/
 import '../../../registration/presentation/controller/sign_up_controller.dart';
 import 'Timing/timing_cubit.dart';
 import 'materials/material_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StepperCubit extends Cubit<int> {
   StepperCubit(this.signUpController) : super(1);
